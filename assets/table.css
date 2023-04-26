@@ -1,0 +1,47 @@
+h1{
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: black;
+    
+}
+a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+
+#tipo_atendimento{
+    background-color: whitesmoke ;
+    
+}
+#peca{
+    background-color: whitesmoke;
+    width: 600px;
+}
+#peca{
+    background-color: whitesmoke;
+    width: 600px;
+    margin-left: 260px;
+    margin-right: 50px;
+}
+#produto{
+    background-color: whitesmoke;
+    width: 800px;
+    margin-left: -180px;
+    margin-right: 200px;
+    
+}
+#consulta {
+    background-color: whitesmoke;
+    width: 800px;
+    justify-items: center;
+
+}
+#tipo_atendimento{
+    background-color: whitesmoke;
+    width: 600px;
+    margin-left: 260px;
+    margin-right: 50px;
+}
