@@ -413,7 +413,7 @@ retornaProduto="anonymous"></script>
     <script>$('#data').mask('00/00/0000');</script>
     <script>$('#date').mask('00/00/0000');</script>
    
-    <script> 
+    <script>
         $(function () {
             Shadowbox.init();
             $(".abrir").click(function(){
@@ -687,4 +687,30 @@ retornaProduto="anonymous"></script>
     </div>
     </div>
 </body>
+<script>
+        $("#cep").change(function(){
+            var cep = $(this).val();
+    console.log(cep);
+    $.ajax({
+        url: "http://viacep.com.br/ws/" + cep + "/json/",
+        type: "GET", 
+        dataType : "json",
+        beforeSend: function() {
+
+            //aguarde 
+
+        },
+        async: false,
+        timeout: 10000,
+        success: function(dados) {
+            console.log(dados.logradouro);
+            $("#endereco").val(dados.logradouro);
+            $("#bairro").val(dados.bairro);
+            $("#cidade").val(dados.localidade);
+            $("#estado").val(dados.uf);
+        }
+        })
+
+        }); 
+</script>
 </html>

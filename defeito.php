@@ -20,7 +20,7 @@ if(isset($_POST["btncriar"]))
     $novaDesc = $_POST['desc'];
     $defeito = (int)$_GET['defeito'];
         $defeitoVerificado = filter_var($novoCodigo, FILTER_SANITIZE_SPECIAL_CHARS) && filter_var($novaDesc, FILTER_SANITIZE_SPECIAL_CHARS);
-        if ($defeitoVerificado= True) {
+        if ($defeitoVerificado == True) {
             if(empty($novoCodigo)){
                 $mensagem = "O campo Código não pode ficar vazio!";
                 $defeitoValidado = False;
@@ -74,6 +74,41 @@ if(isset($_POST["btncriar"]))
     <link rel="stylesheet" href="assets/sistema.css">
     <link rel="stylesheet" href="assets/table.css">
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <style>
+    .error {
+    border: 1.5px solid red;
+    }       
+    </style>
+    <script>
+    function validateForm() {
+        var msg = "";
+        var codigo = document.getElementById("codigo");
+        var desc = document.getElementById("desc");
+
+
+        if (codigo.value == "") {
+            codigo.classList.add("error");
+            msg += "O campo código não pode ficar vazio!\n";  
+        }else {
+            codigo.classList.remove("error");
+        }
+        if (desc.value == "") {
+            desc.classList.add("error");
+            msg += "O campo descrição não pode ficar vazio!\n";
+        }else {
+            desc.classList.remove("error");
+        }
+        if (msg == "") {
+            $("#msg-erro").text(msg);
+        }else {
+            $("#msg-erro").text(msg).show();
+            document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            });
+        }
+    };
+;
+</script>
 </head>
 <body>
     <div class="row">
@@ -85,7 +120,8 @@ if(isset($_POST["btncriar"]))
                     Reportar defeito
                 </div>
                 <div class="panel-body">
-                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" method="POST" class="form">
+                    <div class="msg_erro alert alert-danger" id="msg-erro" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
+                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
                     <label for="codigo">Código</label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -104,7 +140,7 @@ if(isset($_POST["btncriar"]))
                         <br>      
                         <input type="hidden" name="defeito" value="<?= $defeito; ?>">        
                         <div class="text-center">
-                            <button name="btncriar" type="submit" class="btn btn-primary">Enviar</button>
+                            <button name="btncriar" onclick="validateForm()" type="submit" class="btn btn-primary">Enviar</button>
                         </div>
                         <br>
                     </form>

@@ -42,8 +42,8 @@
 		  		<label for="qtde">Serviço realizado</label>
 		  		<select id="servico_realizado" class="form-control">
 		  			<option value="">Selecione o Serviço</option>
-		  			<option value="ajuste_calibragem" data-tipo="ajuste" style="display: none;">Ajuste (Calibragem)</option>
-		  			<option value="ajuste_limpeza" data-tipo="ajuste" style="display: none;">Ajuste (Limpeza)</option>
+		  			<option value="ajuste_calibragem" data-tipo="ajuste">Ajuste (Calibragem)</option>
+		  			<option value="ajuste_limpeza" data-tipo="ajuste">Ajuste (Limpeza)</option>
 		  			<option value="troca_gera_pedido" data-tipo="troca">Troca de Peça (Gerando Pedido)</option>
 		  			<option value="troca_usa_estoque" data-tipo="troca">Troca de Peça (Usando Estoque)</option>
 		  		</select>
@@ -141,6 +141,21 @@
 				$('#apenas_ajuste').prop('checked', false);
 				$('[data-tipo="troca"]').show();
 			  }
+			});
+			function esconderOpcoes() {
+  				if ($("#apenas_ajuste").is(":checked")) {
+				$("#servico_realizado option[data-tipo='troca']").hide();
+				$("#servico_realizado option[data-tipo='ajuste']").show();
+				}else{
+				$("#servico_realizado option[data-tipo='troca']").show();
+				$("#servico_realizado option[data-tipo='ajuste']").hide();
+				}
+			};
+			$(document).ready(function() {
+			esconderOpcoes(); // chamada inicial para esconder as opções se o checkbox estiver marcado
+			$("#apenas_ajuste").change(function() {
+				esconderOpcoes(); // chama a função para atualizar as opções
+			});
 			});
 		});
 
