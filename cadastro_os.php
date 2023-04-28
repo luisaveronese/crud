@@ -705,7 +705,7 @@ retornaProduto="anonymous"></script>
                     <input type="hidden" class="os" value="<?= $os; ?>">
                     <input type="hidden" class="produto" value="<?= $produto; ?>">
                         <h5>Dados da abertura:</h5>
-                        <label for="data">Data de abertura:</label>
+                        <label for="data">Data de abertura:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -714,7 +714,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro1" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="nf">Nota fiscal:</label>
+                        <label for="nf">Nota fiscal:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-paperclip"></i>
@@ -723,7 +723,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro21" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="tipo_atendimento">Tipo de Atendimento:</label>
+                        <label for="tipo_atendimento">Tipo de Atendimento:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-headphones"></i>
@@ -734,7 +734,7 @@ retornaProduto="anonymous"></script>
                         <input type="hidden" class="tipo_atendimento" value="<?= $tipo_atendimento ?>">
                         <br>
                         <h5>Dados da compra:</h5>
-                        <label for="date">Data da compra:</label>
+                        <label for="date">Data da compra:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -743,7 +743,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro2" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="aparencia">Aparência:</label>
+                        <label for="aparencia">Aparência:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-pushpin"></i>
@@ -752,7 +752,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="acessorios">Acessórios</label>
+                        <label for="acessorios">Acessórios</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-pushpin"></i>
@@ -762,7 +762,7 @@ retornaProduto="anonymous"></script>
                         <div class="msg_erro alert alert-danger" id="msg-erro4" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <h5>Dados do consumidor:</h5>
-                        <label for="nome">Nome completo:</label>
+                        <label for="nome">Nome completo:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-user"></i>
@@ -771,7 +771,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro5" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="cpf">CPF ou CNPJ:</label>
+                        <label for="cpf">CPF ou CNPJ:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-pushpin"></i>
@@ -780,7 +780,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro6" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="cep">CEP:</label>
+                        <label for="cep">CEP:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-pushpin"></i>
@@ -789,7 +789,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro7" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="estado">Estado:</label>
+                        <label for="estado">Estado:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-globe"></i>
@@ -798,7 +798,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro8" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="cidade">Cidade:</label>
+                        <label for="cidade">Cidade:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-globe"></i>
@@ -807,7 +807,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro9" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="bairro">Bairro:</label>
+                        <label for="bairro">Bairro:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-globe"></i>
@@ -816,7 +816,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro10" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="endereco">Endereço:</label>
+                        <label for="endereco">Endereço:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-globe"></i>
@@ -825,7 +825,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro11" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="numero">Número:</label>
+                        <label for="numero">Número:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-globe"></i>
@@ -842,7 +842,7 @@ retornaProduto="anonymous"></script>
                         <input type="text" name="complemento" placeholder="casa, apartamento, bloco..." class="complemento form-control" maxlength=40 id="complemento" value="<?= $complemento; ?>">
                         </div>
                         <br>
-                        <label for="tel">Telefone:</label> 
+                        <label for="tel">Telefone:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-earphone"></i>
@@ -851,7 +851,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro13" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="cel">Celular:</label>
+                        <label for="cel">Celular:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-phone"></i>
@@ -860,7 +860,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro14" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="email">E-mail:</label>
+                        <label for="email">E-mail:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-envelope"></i>
@@ -870,7 +870,7 @@ retornaProduto="anonymous"></script>
                         <div class="msg_erro alert alert-danger" id="msg-erro15" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <h5>Dados do produto:</h5>
-                        <label for="numero_serie">Número de série:</label>
+                        <label for="numero_serie">Número de série:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-list-alt"></i>
@@ -882,7 +882,7 @@ retornaProduto="anonymous"></script>
                         <input type="hidden" name="produto" placeholder="produto" class="form-control produto">
                         </div>
                         <br>
-                        <label for="referencia">Referência:</label>
+                        <label for="referencia">Referência:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
@@ -891,7 +891,7 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro17" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="desc">Descrição:</label>
+                        <label for="desc">Descrição:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-list-alt"></i>
@@ -903,7 +903,7 @@ retornaProduto="anonymous"></script>
                         <input type="hidden" name="produto" placeholder="produto" class="form-control descricao_defeito">
                         </div>
                         <br>
-                        <label for="defeito">Defeito:</label>
+                        <label for="defeito">Defeito:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
