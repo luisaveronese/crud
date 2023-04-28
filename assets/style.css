@@ -30,3 +30,7 @@ input{
 .msg_erro{
     margin-left: 0px;
 }
+.required{
+    font-weight: bold;
+    color: red;
+}

@@ -95,6 +95,44 @@ if(isset($_POST["btncriar"]))
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+<style>
+    .error {
+    border: 1.2px solid red;
+    }       
+    </style>
+<script>
+    function validateForm() {
+        var msg1 = "";
+        var msg2 = "";
+        var codigo = document.getElementById("codigo");
+        var desc = document.getElementById("desc");
+
+
+        if (codigo.value == "") {
+            codigo.classList.add("error");
+            msg1 = "O campo código não pode ficar vazio!\n";  
+        }else {
+            codigo.classList.remove("error");
+        }
+        if (desc.value == "") {
+            desc.classList.add("error");
+            msg2 = "O campo descrição não pode ficar vazio!\n";
+        }else {
+            desc.classList.remove("error");
+        }
+        if (msg1 == "" && msg2 == "") {
+            $("#msg-erro1").text(msg1);
+            $("#msg-erro2").text(msg2);
+        }else {
+            $("#msg-erro1").text(msg1).show();
+            $("#msg-erro2").text(msg2).show();
+            document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            });
+        }
+    };
+;
+</script>
 <body>
     <div class="row">
         <div class="col-md-4">
@@ -105,22 +143,24 @@ if(isset($_POST["btncriar"]))
                     Tipo de atendimento
                 </div>
                 <div class="panel-body">
-                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" method="POST" class="form">
-                    <label for="codigo">Código:</label>
+                <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
+                    <label for="codigo">Código:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
                             </span>
                         <input type="text" name="codigo" placeholder="Código do atendimento" class="form-control codigo" maxlength=10 id="codigo" value="<?= $codigo ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro1" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="desc">Descrição:</label>
+                        <label for="desc">Descrição:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-list-alt"></i>
                             </span>
                         <input type="text" name="desc" placeholder="Ex.: manutenção de sistema" class="form-control descricao" maxlength=50 id="desc"value="<?= $descricao ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro2" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <div class="active-product text-center">
                             <input type="checkbox" name="check" <?= ($ativo =='ativo') ? "   checked":"";?> value="t"> O atendimento está ativo
@@ -128,7 +168,7 @@ if(isset($_POST["btncriar"]))
                         <br>
                         <input type="hidden" name="tipo_atendimento" placeholder="tipo_atendimento" class="tipo_atendimento" value="<?= $tipo_atendimento ?>">              
                         <div class="text-center">
-                            <button name="btncriar" type="submit" class="btn btn-primary">Enviar</button>
+                            <button name="btncriar" type="submit" onclick="validateForm()" class="btn btn-primary">Enviar</button>
                         </div>
                         <br>
                     </form>

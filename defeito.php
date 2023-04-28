@@ -76,32 +76,34 @@ if(isset($_POST["btncriar"]))
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <style>
     .error {
-    border: 1.5px solid red;
+    border: 1.2px solid red;
     }       
     </style>
     <script>
     function validateForm() {
-        var msg = "";
+        var msg1 = "";
         var codigo = document.getElementById("codigo");
         var desc = document.getElementById("desc");
 
 
         if (codigo.value == "") {
             codigo.classList.add("error");
-            msg += "O campo código não pode ficar vazio!\n";  
+            msg1 = "O campo código não pode ficar vazio!\n";  
         }else {
             codigo.classList.remove("error");
         }
         if (desc.value == "") {
             desc.classList.add("error");
-            msg += "O campo descrição não pode ficar vazio!\n";
+            msg2 = "O campo descrição não pode ficar vazio!\n";
         }else {
             desc.classList.remove("error");
         }
-        if (msg == "") {
-            $("#msg-erro").text(msg);
+        if (msg1 == "" && msg2 == "") {
+            $("#msg-erro1").text(msg1);
+            $("#msg-erro2").text(msg2);
         }else {
-            $("#msg-erro").text(msg).show();
+            $("#msg-erro1").text(msg1).show();
+            $("#msg-erro2").text(msg2).show();
             document.querySelector('form').addEventListener('submit', function(event) {
             event.preventDefault();
             });
@@ -120,23 +122,24 @@ if(isset($_POST["btncriar"]))
                     Reportar defeito
                 </div>
                 <div class="panel-body">
-                    <div class="msg_erro alert alert-danger" id="msg-erro" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                     <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
-                    <label for="codigo">Código</label>
+                    <label for="codigo">Código</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
                             </span>
                         <input type="text" name="codigo" placeholder="Código do defeito" class="form-control" maxlength=10 id="codigo" value="<?= $codigo; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro1" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="desc">Descrição</label>
+                        <label for="desc">Descrição</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-list-alt"></i>
                             </span>
                         <input type="text" name="desc" placeholder="Ex.: desligamento inesperado" class="form-control"maxlength=50 id="desc" value="<?= $descricao; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro2" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>      
                         <input type="hidden" name="defeito" value="<?= $defeito; ?>">        
                         <div class="text-center">
