@@ -280,11 +280,6 @@ if(isset($_POST["btngravar"])) {
         $cadastroOsValidado = False;
         $msg = "O campo Atendimento não pode ficar vazio!";
     }
-    if(empty($novoComplemento)){
-        $erro = True;
-        $cadastroOsValidado = False;
-        $msg = "O campo Complemento não pode ficar vazio!";
-    }
     if($erro == false && $cadastroOsValidado = True){
         if($os == 0){
            $sql_insert = "INSERT INTO os(data_abertura,
@@ -412,8 +407,230 @@ retornaProduto="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>$('#data').mask('00/00/0000');</script>
     <script>$('#date').mask('00/00/0000');</script>
-   
+    <style>
+        .error {
+        border: 1.2px solid red;
+        }       
+    </style>
     <script>
+        function validateForm() {
+        var msg1 = ""; // data abertura
+        var msg2 = ""; // data compra
+        var msg3 = ""; // aparencia
+        var msg4 = ""; // acessorio
+        var msg5 = ""; // nome
+        var msg6 = ""; // cpf
+        var msg7 = ""; // cep
+        var msg8= ""; // estado
+        var msg9 = ""; // cidade
+        var msg10 = ""; //bairro
+        var msg11 = ""; //endereco
+        var msg12 = ""; // numero
+        var msg13 = ""; // telefone
+        var msg14 = ""; // celular
+        var msg15 = ""; // email
+        var msg16 = ""; // numero_serie
+        var msg17 = ""; // defeito
+        var msg18 = ""; // referencia
+        var msg19 = ""; // descricao
+        var msg20 = ""; // tipo_atendimento
+        var msg21 = ""; // nota_fiscal
+        var dataAbertura = document.getElementById("data");
+        var notaFiscal = document.getElementById("nf");
+        var dataCompra = document.getElementById("date");
+        var aparencia = document.getElementById("aparencia");
+        var acessorios = document.getElementById("acessorios");
+        var nome = document.getElementById("nome");
+        var cpf = document.getElementById("cpf");
+        var cep = document.getElementById("cep");
+        var estado = document.getElementById("estado");
+        var cidade = document.getElementById("cidade");
+        var bairro = document.getElementById("bairro");
+        var endereco = document.getElementById("endereco");
+        var numero = document.getElementById("numero");
+        var telefone = document.getElementById("tel");
+        var celular = document.getElementById("cel");
+        var email = document.getElementById("email");
+        var numSerie = document.getElementById("numero_serie");
+        var defeito = document.getElementById("defeito");
+        var desc = document.getElementById("desc");
+        var atendimento = document.getElementById("tipo_atendimento");
+        
+        if (dataAbertura.value == ""){
+            dataAbertura.classList.add("error");
+            msg1 = "O campo data de abertura não pode ficar vazio!\n";
+        }else{
+            dataAbertura.classList.remove("error");
+        }
+        if (notaFiscal.value == ""){
+            notaFiscal.classList.add("error");
+            msg21 = "O campo nota fiscal não pode ficar vazio!\n";
+        }else{
+            notaFiscal.classList.remove("error");
+        }
+        if (dataCompra.value == ""){
+            dataCompra.classList.add("error");
+            msg2 = "O campo data de compra não pode ficar vazio!\n";
+        }else{
+            dataCompra.classList.remove("error");
+        }
+        if (aparencia.value == ""){
+            aparencia.classList.add("error");
+            msg3 = "O campo aparência não pode ficar vazio!\n";
+        }else{
+            aparencia.classList.remove("error");
+        }
+        if (acessorios.value == ""){
+            acessorios.classList.add("error");
+            msg4 = "O campo acessório não pode ficar vazio!\n";
+        }else{
+            acessorios.classList.remove("error");
+        }
+        if(nome.value == ""){
+            nome.classList.add("error");
+            msg5 = "O campo nome não pode ficar vazio!\n";
+        }else{
+            nome.classList.remove("error");
+        }
+        if(cpf.value == ""){
+            cpf.classList.add("error");
+            msg6 = "O campo CPF ou CNPJ não pode ficar vazio!\n";
+        }else{
+            cpf.classList.remove("error");
+        }
+        if(cep.value == ""){
+            cep.classList.add("error");
+            msg7 = "O campo CEP não pode ficar vazio!\n";
+        }else{
+            cep.classList.remove("error");
+        }
+        if(estado.value == ""){
+            estado.classList.add("error");
+            msg8 = "O campo estado não pode ficar vazio!\n";
+        }else{
+            estado.classList.remove("error");
+        }
+        if(cidade.value == ""){
+            cidade.classList.add("error");
+            msg9 = "O campo cidade não pode ficar vazio!\n";
+        }else{
+            cidade.classList.remove("error");
+        }
+        if(bairro.value == ""){
+            bairro.classList.add("error");
+            msg10 = "O campo bairro não pode ficar vazio!\n";
+        }else{
+            bairro.classList.remove("error");
+        }
+        if(endereco.value == ""){
+            endereco.classList.add("error");
+            msg11 = "O campo endereço não pode ficar vazio!\n";
+        }else{
+            endereco.classList.remove("error");
+        }
+        if(numero.value == ""){
+            numero.classList.add("error");
+            msg12 = "O campo número não pode ficar vazio!\n";
+        }else{
+            numero.classList.remove("error");
+        }
+        if(telefone.value == ""){
+            telefone.classList.add("error");
+            msg13 = "O campo telefone não pode ficar vazio!\n";
+        }else{
+            telefone.classList.remove("error");
+        }
+        if(celular.value == ""){
+            celular.classList.add("error");
+            msg14 = "O campo celular não pode ficar vazio!\n";
+        }else{
+            celular.classList.remove("error");
+        }
+        if(email.value == ""){
+            email.classList.add("error");
+            msg15 = "O campo email não pode ficar vazio!\n";
+        }else{
+            email.classList.remove("error");
+        }
+        if(numSerie.value == ""){
+            numSerie.classList.add("error");
+            msg16 = "O campo número de série não pode ficar vazio!\n";
+        }else{
+            numSerie.classList.remove("error");
+        }
+        if(defeito.value == ""){
+            defeito.classList.add("error");
+            msg17 = "O campo defeito não pode ficar vazio!\n";
+        }else{
+            defeito.classList.remove("error");
+        } 
+        if(referencia.value == ""){
+            referencia.classList.add("error");
+            msg18 = "O campo referência não pode ficar vazio!\n";
+        }else{
+            referencia.classList.remove("error");
+        }
+        if(desc.value == ""){
+            desc.classList.add("error");
+            msg19 = "O campo descrição não pode ficar vazio!\n";
+        }else{
+            desc.classList.remove("error");
+        }
+        if(atendimento.value == ""){
+            atendimento.classList.add("error");
+            msg20 = "O campo tipo de atendimento não pode ficar vazio!\n";
+        }
+
+        if (msg1 == "" && msg2 == "" && msg3 == "" && msg4 == "" && msg5 == "" && msg6 == "" && msg7 == "" && msg8 == "" && msg9 == "" && msg10 == "" && msg11 == "" && msg12 == "" && msg13 == "" && msg14 == "" && msg15 == "" && msg16 == "" && msg17 == "" && msg18 == "" && msg19 == "" && msg20 == "" && msg21 == "") {
+            $("#msg-erro1").text(msg1);
+            $("#msg-erro2").text(msg2);
+            $("#msg-erro3").text(msg3);
+            $("#msg-erro4").text(msg4);
+            $("#msg-erro5").text(msg5);
+            $("#msg-erro6").text(msg6);
+            $("#msg-erro7").text(msg7);
+            $("#msg-erro8").text(msg8);
+            $("#msg-erro9").text(msg9);
+            $("#msg-erro10").text(msg10);
+            $("#msg-erro11").text(msg11);
+            $("#msg-erro12").text(msg12);
+            $("#msg-erro13").text(msg13);
+            $("#msg-erro14").text(msg14);
+            $("#msg-erro15").text(msg15);
+            $("#msg-erro16").text(msg16);
+            $("#msg-erro17").text(msg17);
+            $("#msg-erro18").text(msg18);
+            $("#msg-erro19").text(msg19);
+            $("#msg-erro20").text(msg20);
+            $("#msg-erro21").text(msg21);
+        }else {
+            $("#msg-erro1").text(msg1).show();
+            $("#msg-erro2").text(msg2).show();
+            $("#msg-erro3").text(msg3).show();
+            $("#msg-erro4").text(msg4).show();
+            $("#msg-erro5").text(msg5).show();
+            $("#msg-erro6").text(msg6).show();
+            $("#msg-erro7").text(msg7).show();
+            $("#msg-erro8").text(msg8).show();
+            $("#msg-erro9").text(msg9).show();
+            $("#msg-erro10").text(msg10).show();
+            $("#msg-erro11").text(msg11).show();
+            $("#msg-erro12").text(msg12).show();
+            $("#msg-erro13").text(msg13).show();
+            $("#msg-erro14").text(msg14).show();
+            $("#msg-erro15").text(msg15).show();
+            $("#msg-erro16").text(msg16).show();
+            $("#msg-erro17").text(msg17).show();
+            $("#msg-erro18").text(msg18).show();
+            $("#msg-erro19").text(msg19).show();
+            $("#msg-erro20").text(msg20).show();
+            $("#msg-erro21").text(msg21).show();
+            document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            });
+        }
+    };
+;
         $(function () {
             Shadowbox.init();
             $(".abrir").click(function(){
@@ -484,7 +701,7 @@ retornaProduto="anonymous"></script>
                     Cadastro OS
                 </div>
                 <div class="panel-body">
-                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" method="POST" class="form">
+                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
                     <input type="hidden" class="os" value="<?= $os; ?>">
                     <input type="hidden" class="produto" value="<?= $produto; ?>">
                         <h5>Dados da abertura:</h5>
@@ -493,8 +710,9 @@ retornaProduto="anonymous"></script>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
-                        <input id="data" type="text" name="data" placeholder="Data de Abertura" class="dataAbertura form-control" value="<?= $dataAberturaBanco ?>">
+                            <input id="data" type="text" name="data" placeholder="Data de Abertura" class="dataAbertura form-control" value="<?= $dataAberturaBanco ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro1" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="nf">Nota fiscal:</label>
                         <div class="input-group">
@@ -503,6 +721,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="NF" placeholder="Ex.: 1234567890" class="nf form-control" maxlength=10 id="nf" value="<?= $nf; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro21" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="tipo_atendimento">Tipo de Atendimento:</label>
                         <div class="input-group">
@@ -511,6 +730,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="tipo_atendimento" placeholder="Selecione o tipo de atendimento" class="codigo_atendimento form-control" id="tipo_atendimento" value="<?= $tipo_atendimento; ?>"><span class="buscar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro20" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <input type="hidden" class="tipo_atendimento" value="<?= $tipo_atendimento ?>">
                         <br>
                         <h5>Dados da compra:</h5>
@@ -521,6 +741,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input id="date" type="text" name="date" placeholder="Data da Compra" class="dataCompra form-control" value="<?= $dataCompraBanco ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro2" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="aparencia">Aparência:</label>
                         <div class="input-group">
@@ -529,6 +750,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="aparencia" placeholder="Ex.: conservado" class="aparencia form-control"maxlength=50 id="aparencia" value="<?= $aparencia; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="acessorios">Acessórios</label>
                         <div class="input-group">
@@ -537,6 +759,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="acessorios" placeholder="Ex.: cabo extensor" class="acessorios form-control" maxlength=50 id="acessorios" value="<?= $acessorios; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro4" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <h5>Dados do consumidor:</h5>
                         <label for="nome">Nome completo:</label>
@@ -546,6 +769,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="nome" placeholder="Ex.: José da Silva" class="nome form-control" maxlength=50 id="nome" value="<?= $nome; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro5" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="cpf">CPF ou CNPJ:</label>
                         <div class="input-group">
@@ -554,6 +778,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="cpf_cnpj" placeholder="Ex.: 12345678900" class="cpf form-control" maxlength=14 id="cpf" value="<?= $cpf; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro6" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="cep">CEP:</label>
                         <div class="input-group">
@@ -562,6 +787,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="cep" placeholder="Ex.: 9876543211" class="cep form-control" maxlength=10 id="cep" value="<?= $cep; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro7" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="estado">Estado:</label>
                         <div class="input-group">
@@ -570,6 +796,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="estado" placeholder="Ex.: SP" class="estado form-control" maxlength=2 id="estado" value="<?= $estado; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro8" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="cidade">Cidade:</label>
                         <div class="input-group">
@@ -578,6 +805,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="cidade" placeholder="Ex.: Campinas" class="cidade form-control" maxlength=50 id="cidade" value="<?= $cidade; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro9" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="bairro">Bairro:</label>
                         <div class="input-group">
@@ -586,6 +814,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="bairro" placeholder="Ex.: centro" class="bairro form-control" maxlength=50 id="bairro" value="<?= $bairro; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro10" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="endereco">Endereço:</label>
                         <div class="input-group">
@@ -594,6 +823,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="endereco" placeholder="Ex.: Avenida Francisco Glicério" class="endereco form-control"maxlength=50 id="endereco" value="<?= $endereco; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro11" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="numero">Número:</label>
                         <div class="input-group">
@@ -602,6 +832,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="numero" placeholder="Ex.: 506" class="numero form-control" maxlength=10 id="numero" value="<?= $numero; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro12" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="complemento">Complemento:</label>
                         <div class="input-group">
@@ -618,6 +849,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="telefone" placeholder="Ex.: 1134525462" class="telefone form-control" maxlength=10 id="tel" value="<?= $telefone; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro13" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="cel">Celular:</label>
                         <div class="input-group">
@@ -626,6 +858,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="celular" placeholder="Ex.: 14953471572" class="celular form-control"maxlength=11 id="cel" value="<?= $celular; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro14" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="email">E-mail:</label>
                         <div class="input-group">
@@ -634,6 +867,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="email" placeholder="Ex.: exemplo@gmail.com" class="email form-control"maxlength=50 id="email" value="<?= $email; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro15" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <h5>Dados do produto:</h5>
                         <label for="numero_serie">Número de série:</label>
@@ -642,8 +876,8 @@ retornaProduto="anonymous"></script>
                                 <i class="glyphicon glyphicon-list-alt"></i>
                             </span>
                         <input type="text" name="numero_serie" id="numero_serie" placeholder="Número de série" class="numeroSerie form-control" maxlength=50 value="<?= $numeroSerie; ?>">
-                        
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro16" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                          <div class="input-group">
                         <input type="hidden" name="produto" placeholder="produto" class="form-control produto">
                         </div>
@@ -655,6 +889,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="referencia" placeholder="Número de referência" class="form-control referencia" maxlength="10" id="referencia"  value="<?= $referencia ?>"><span class="abrir input-group-addon"><i class="glyphicon glyphicon-search"></i></span> 
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro17" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <label for="desc">Descrição:</label>
                         <div class="input-group">
@@ -663,6 +898,7 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="desc" placeholder="Ex.: ar condicionado midea 10000 btus" class="form-control descricao" maxlenght="50" id="desc" value="<?= $descricao ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro18" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <div class="input-group">
                         <input type="hidden" name="produto" placeholder="produto" class="form-control descricao_defeito">
                         </div>
@@ -674,9 +910,10 @@ retornaProduto="anonymous"></script>
                             </span>
                         <input type="text" name="defeito" placeholder="Ex.: problemas ao resfriar" class="form-control codigo_defeito" id="defeito" value="<?= $id_defeito; ?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro19" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <div class="text-center">
-                            <button name ="btngravar" value="t" type="submit" class="btn btn-primary">Cadastrar</button>
+                            <button name ="btngravar" value="t" type="submit" onclick="validateForm()" class="btn btn-primary">Cadastrar</button>
                         </div>
                     </form>
                 </div>
