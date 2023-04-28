@@ -99,7 +99,60 @@ if(isset($_POST["btncriar"]))
     <link rel="stylesheet" href="assets/sistema.css">
     <link rel="stylesheet" href="assets/table.css">
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="bootstrap/js/shadowbox.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+<style>
+    .error {
+    border: 1.2px solid red;
+    }       
+</style>
+<script>
+    function validateForm() {
+        var msg1 = "";
+        var msg2 = "";
+        var msg3 = "";
+        var referencia = document.getElementById("referencia");
+        var desc = document.getElementById("desc");
+        var garantia = document.getElementById("garantia");
+
+        if (referencia.value == "") {
+            referencia.classList.add("error");
+            msg1 = "O campo código não pode ficar vazio!\n";  
+        }else {
+            referencia.classList.remove("error");
+        }
+        if (desc.value == "") {
+            desc.classList.add("error");
+            msg2 = "O campo descrição não pode ficar vazio!\n";
+        }else {
+            desc.classList.remove("error");
+        }
+        if (garantia.value == ""){
+            garantia.classList.add("error");
+            msg3 = "O campo garantia não pode ficar vazio!\n";
+
+        }else{
+            garantia.classList.remove("error");
+        }
+        if (msg1 == "" && msg2 == "" && msg3 == "") {
+            $("#msg-erro1").text(msg1);
+            $("#msg-erro2").text(msg2);
+            $("#msg-erro3").text(msg3);
+        }else {
+            $("#msg-erro1").text(msg1).show();
+            $("#msg-erro2").text(msg2).show();
+            $("#msg-erro3").text(msg3).show();
+            document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            });
+        }
+    };
+;
+</script>
 <body>
     <div class="row">
         <div class="col-md-4"></div>
@@ -109,30 +162,33 @@ if(isset($_POST["btncriar"]))
                     Cadastrar Produto
                 </div>
                 <div class="panel-body">
-                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" method="POST" class="form">
-                        <label for="referencia">Referência:</label>
+                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
+                        <label for="referencia">Referência:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
                             </span>
                         <input type="text" name="referencia" placeholder="Número de referência" class="form-control" maxlength=10 id="referencia" value="<?= $referencia; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro1" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="desc">Descrição:</label>
+                        <label for="desc">Descrição:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-list-alt"></i>
                             </span>
                         <input type="text" name="desc" placeholder="Ex.: Midea, 12kg, 220v" class="form-control" maxlenght=50 id="desc" value="<?= $descricao; ?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro2" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <label for="garantia">Tempo de Garantia:</label>
+                        <label for="garantia">Tempo de Garantia:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>                    
                         <input type="text" name="garantia" placeholder="Tempo de garantia (em meses)" class="form-control" id="garantia" value="<?=$garantia;?>">
                         </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <div class="active-product text-center">
                             <input type="checkbox" name="check" <?= ($ativo =='ativo') ? "   checked":"";?> value="t"> O produto está ativo
@@ -140,7 +196,7 @@ if(isset($_POST["btncriar"]))
                         <br>
                         <input type="hidden" name="produto" value="<?= $produto; ?>">      
                         <div class="text-center">
-                            <button name ="btncriar" type="submit" class="btn btn-primary">Cadastrar</button>
+                            <button name ="btncriar" type="submit" onclick="validateForm()" class="btn btn-primary">Cadastrar</button>
                         </div>
                         <br>
                         <div class="panel-footer text-center"><?= $mensagem ?></div>

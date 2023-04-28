@@ -126,7 +126,6 @@ if(isset($_POST["btncriar"]))
         }
     };
 ;
-
 </script>
 <body>
     <div class="row">
