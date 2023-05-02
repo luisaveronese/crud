@@ -10,8 +10,7 @@ if(isset($_POST["btncriar"]))
     $novaSenha = $_POST['senha'];
     $confirmaSenha = $_POST['confirmaSenha'];
     $novoNome = $_POST['nome'];
-    $nomeFabrica = $_POST['nome_fabrica'];
-    $fabrica = (int)$_GET['fabrica'];
+    $fabrica = $_POST['fabrica'];
     if(empty($novoNome)){
             $erro = "O campo Nome não pode ficar vazio!";
             $contaValidada = False;
@@ -144,7 +143,7 @@ function validateForm() {
         }else{
             confirma_senha.classList.remove("error");
         }
-        if (senha.value != confirma_senha){
+        if (senha.value != confirma_senha.value){
             confirma_senha.classList.add("error");
             msg6 = "As senhas não coincidem. \n";
         }else{
