@@ -8,6 +8,7 @@ if(isset($_GET['peca'])){
     if(pg_num_rows($res) > 0){
         $referencia = pg_fetch_result($res, 0, "referencia");
         $descricao = pg_fetch_result($res, 0, "descricao");
+        $fabrica = pg_fetch_result($res, 0, 'fabrica');
     }
 }
 
@@ -98,9 +99,10 @@ if(isset($_POST["btncriar"]))
     function validateForm() {
         var msg1 = "";
         var msg2 = "";
+        var msg3 = "";
         var referencia = document.getElementById("referencia");
         var desc = document.getElementById("desc");
-
+        var fabrica = document.getElementById("fab");
 
         if (referencia.value == "") {
             referencia.classList.add("error");
@@ -114,18 +116,44 @@ if(isset($_POST["btncriar"]))
         }else {
             desc.classList.remove("error");
         }
-        if (msg1 == "" && msg2 == "") {
+        if (fabrica.value == ""){
+            fabrica.classList.add("error");
+            msg3 = "O campo fábrica não pode ficar vazio!\n";
+        }else{
+            fabrica.classList.remove("error");
+        }
+        if (msg1 == "" && msg2 == "" && msg3 == "") {
             $("#msg-erro1").text(msg1);
             $("#msg-erro2").text(msg2);
+            $("#msg-erro3").text(msg3);
         }else {
             $("#msg-erro1").text(msg1).show();
             $("#msg-erro2").text(msg2).show();
+            $("#msg-erro3").text(msg3).show();
             document.querySelector('form').addEventListener('submit', function(event) {
             event.preventDefault();
             });
         }
     };
-;
+    $(function () { 
+            Shadowbox.init();
+            $(".pesquisar").click(function(){
+                var nome = $(".nome").val(); 
+                console.log("nome ", nome);
+                Shadowbox.open({
+                    content:    "tabela_fabrica.php?fabrica="+nome,
+                    player: "iframe",
+                    title:  "",
+                    width:  1300,
+                    height: 600
+                });
+            });
+        });
+    function retornaFabrica(fabrica, nome_fabrica){
+        console.log("chegou aqui"+nome_fabrica)
+        $(".fabrica").val(fabrica);
+        $(".nome_fabrica").val(nome_fabrica);
+    };
 </script>
 <body>
     <div class="row">
@@ -148,20 +176,29 @@ if(isset($_POST["btncriar"]))
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-list-alt"></i>
-                            </span>
+                                <span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span> </span>
                         <input type="text" name="desc" placeholder="Ex.: defletor ar-condicionado" class="form-control" maxlength=50 id="desc" value="<?=$descricao?>">
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro2" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
+                        <label for="nome_fabrica">Fábrica:</label><label class="required">*</label> 
+                    <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-compressed"></i>
+                            </span>
+                        <input type="text" name="nome_fabrica" placeholder="Ex.: Makita" class="form-control" maxlength=50 id="nome_fabrica" value="<?=$nome_fabrica?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
+                        <br>
+                        <input type="hidden" name="fabrica" value="<?=$fabrica;?>">
                         <input type="hidden" name="peca" id="peca" value="<?=$peca;?>">
-                             
                         <div class="text-center">
                             <button name = "btncriar"type="submit" onclick="validateForm()" class="btn btn-primary">Cadastrar</button>
                         </div>
                         <br>
                     </form>
                 </div>
-                <div class="panel-footer text-center"><?= $mensagem . $suc ?></div>
+                <div class="panel-footer text-center"><?= $mensagem ?></div>
             </div>
         </div>
 </div>
@@ -169,8 +206,9 @@ if(isset($_POST["btncriar"]))
     $sql = "SELECT 
     peca,
     referencia,
-    descricao
-      FROM peca";
+    descricao,
+    fabrica
+    FROM peca";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>
@@ -189,6 +227,7 @@ if(isset($_POST["btncriar"]))
         <tr class="titulo_coluna">
           <th>Referência</th>
           <th>Descrição</th>
+          <th>Fábrica</th>
           <th>Ação</th>
         </tr>
       </th>
@@ -198,11 +237,13 @@ if(isset($_POST["btncriar"]))
             $peca = pg_fetch_result($res, $i, 'peca');
             $referencia = pg_fetch_result($res, $i, 'referencia');
             $descricao = pg_fetch_result($res, $i, 'descricao');
+            $fabrica = pg_fetch_result($res, $i, 'fabrica');
           
         ?>
         <tr>
             <td class="tac"><?= $referencia;?></td>
             <td class="tac"><?= $descricao;?></td>
+            <td class="tac"><?= $fabrica;?></td>
             <td class="tac"><a href="cadastro_pecas.php?peca=<?=$peca;?>"><button class="btn btn-primary">Editar</a></button></td>
         </tr>
         <?php } ?>

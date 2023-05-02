@@ -151,7 +151,7 @@ if(isset($_POST["btncriar"]))
     ?>
     <div class="row">
     <div class="container">
-    <table id= "fabrica" class="table table-striped table-bordered table-hover table-large table-fixed">
+    <table id= "fab" class="table table-striped table-bordered table-hover table-large table-fixed">
       <th>
         <tr class="titulo_coluna">
           <th>Nome</th>
