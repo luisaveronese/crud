@@ -27,6 +27,7 @@
   <li><a href="defeito.php">Defeito</a></li>
   <li><a href="cadastro_os.php">Ordem de Serviço</a></li>
   <li><a href="consulta_os.php">Consulta OS</a></li>
+  <li><a href="fabrica.php">Fábrica</a></li>
   <li><a href="index.php">Sair</a></li>
   </div>
   </ul>
