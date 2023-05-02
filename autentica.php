@@ -24,7 +24,6 @@ if(isset($_POST['email']) && isset($_POST['senha'])){
         if(pg_num_row($res)==0){
             $_SESSION['logado'] = true;
             header("location:sistema.php"); 
-            echo "chegay";
         }else{
             $erro = true;
             $msg = "verifique os campos corretamente.";
