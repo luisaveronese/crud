@@ -9,6 +9,7 @@ if(isset($_GET['peca'])){
         $referencia = pg_fetch_result($res, 0, "referencia");
         $descricao = pg_fetch_result($res, 0, "descricao");
         $fabrica = pg_fetch_result($res, 0, 'fabrica');
+        $nomeFabrica = pg_fetch_result($res, 0, 'nome');
     }
 }
 
@@ -76,10 +77,10 @@ if(isset($_POST["btncriar"]))
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro OS</title>
+    <title>Cadastro de peças</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/sistema.css">
@@ -104,7 +105,7 @@ retornaProduto="anonymous"></script>
         var msg3 = "";
         var referencia = document.getElementById("referencia");
         var desc = document.getElementById("desc");
-        var fabrica = document.getElementById("fab");
+        var fabrica = document.getElementById("nome_fabrica");
 
         if (referencia.value == "") {
             referencia.classList.add("error");
@@ -188,7 +189,7 @@ retornaProduto="anonymous"></script>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-compressed"></i>
                             </span>
-                        <input type="text" name="nome_fabrica" placeholder="Ex.: Makita" class="nome_fabrica form-control" maxlength=50 id="nome_fabrica" value="<?=$nome_fabrica?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" name="nome_fabrica" placeholder="Clique no botão pesquisar para selecionar" class="nome_fabrica form-control" maxlength=50 id="nome_fabrica" value="<?=$nomeFabrica?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
@@ -236,13 +237,13 @@ retornaProduto="anonymous"></script>
             $referencia = pg_fetch_result($res, $i, 'referencia');
             $descricao = pg_fetch_result($res, $i, 'descricao');
             $fabrica = pg_fetch_result($res, $i, 'fabrica');
-            $nome_fabrica = pg_fetch_result($res, $i, 'nome');
+            $nomeFabrica = pg_fetch_result($res, $i, 'nome');
           
         ?>
         <tr>
             <td class="tac"><?= $referencia;?></td>
             <td class="tac"><?= $descricao;?></td>
-            <td class="tac"><?= $nome_fabrica;?></td>
+            <td class="tac"><?= $nomeFabrica;?></td>
             <td class="tac"><a href="cadastro_pecas.php?peca=<?=$peca;?>"><button class="btn btn-primary">Editar</a></button></td>
         </tr>
         <?php } ?>
