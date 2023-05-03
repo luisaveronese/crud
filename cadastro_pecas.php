@@ -3,7 +3,7 @@ include "include/conexao.php";
 include "include/navbar.php";
 if(isset($_GET['peca'])){
     $peca = (int)$_GET['peca'];
-    $sql = "SELECT * FROM peca WHERE peca = $peca";
+    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE peca = $peca";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $referencia = pg_fetch_result($res, 0, "referencia");
@@ -23,6 +23,7 @@ if(isset($_POST["btncriar"]))
     $pecaVerificada = True;
     $novaReferencia = $_POST['referencia'];
     $novaDesc = $_POST['desc'];
+    $fabrica = $_POST['fabrica'];
     $peca = (int)$_GET['peca'];
 
         $pecaVerificada = filter_var($novaReferencia, FILTER_SANITIZE_SPECIAL_CHARS) && filter_var($novaDesc, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -51,9 +52,9 @@ if(isset($_POST["btncriar"]))
             
             if($erro == false && $pecaValidada == true){
                 if($peca == 0){
-                    $sql_insert = "INSERT INTO peca(referencia, descricao) VALUES('$novaReferencia', '$novaDesc')";
+                    $sql_insert = "INSERT INTO peca(referencia, descricao, fabrica) VALUES('$novaReferencia', '$novaDesc', '$fabrica')";
                 }else{
-                    $sql_insert = "UPDATE peca SET referencia = '$novaReferencia', descricao = '$novaDesc' WHERE peca = $peca";
+                    $sql_insert = "UPDATE peca SET referencia = '$novaReferencia', descricao = '$novaDesc', fabrica = '$fabrica' WHERE peca = $peca";
                 }
                 $res_insert = pg_query($con, $sql_insert);
                 if(strlen(pg_last_error($con)) == 0){
@@ -75,16 +76,17 @@ if(isset($_POST["btncriar"]))
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de peças</title>
+    <title>Cadastro OS</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/sistema.css">
     <link rel="stylesheet" href="assets/table.css">
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="bootstrap/css/shadowbox.css" >
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin=retornaProduto
+retornaProduto="anonymous"></script>
     <script src="bootstrap/js/shadowbox.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -176,7 +178,7 @@ if(isset($_POST["btncriar"]))
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-list-alt"></i>
-                                <span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span> </span>
+                            </span>
                         <input type="text" name="desc" placeholder="Ex.: defletor ar-condicionado" class="form-control" maxlength=50 id="desc" value="<?=$descricao?>">
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro2" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
@@ -186,11 +188,11 @@ if(isset($_POST["btncriar"]))
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-compressed"></i>
                             </span>
-                        <input type="text" name="nome_fabrica" placeholder="Ex.: Makita" class="form-control" maxlength=50 id="nome_fabrica" value="<?=$nome_fabrica?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" name="nome_fabrica" placeholder="Ex.: Makita" class="nome_fabrica form-control" maxlength=50 id="nome_fabrica" value="<?=$nome_fabrica?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
-                        <input type="hidden" name="fabrica" value="<?=$fabrica;?>">
+                        <input type="hidden" class="fabrica" name="fabrica" value="<?=$fabrica;?>">
                         <input type="hidden" name="peca" id="peca" value="<?=$peca;?>">
                         <div class="text-center">
                             <button name = "btncriar"type="submit" onclick="validateForm()" class="btn btn-primary">Cadastrar</button>
@@ -203,13 +205,9 @@ if(isset($_POST["btncriar"]))
         </div>
 </div>
   <?php
-    $sql = "SELECT 
-    peca,
-    referencia,
-    descricao,
-    fabrica
-    FROM peca";
+    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica";
     $res = pg_query($con, $sql);
+    //echo pg_last_error($con); echo nl2br($sql); exit;
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>
         <div class="alert alert-warning alert-dismissible" role="alert">
@@ -238,12 +236,13 @@ if(isset($_POST["btncriar"]))
             $referencia = pg_fetch_result($res, $i, 'referencia');
             $descricao = pg_fetch_result($res, $i, 'descricao');
             $fabrica = pg_fetch_result($res, $i, 'fabrica');
+            $nome_fabrica = pg_fetch_result($res, $i, 'nome');
           
         ?>
         <tr>
             <td class="tac"><?= $referencia;?></td>
             <td class="tac"><?= $descricao;?></td>
-            <td class="tac"><?= $fabrica;?></td>
+            <td class="tac"><?= $nome_fabrica;?></td>
             <td class="tac"><a href="cadastro_pecas.php?peca=<?=$peca;?>"><button class="btn btn-primary">Editar</a></button></td>
         </tr>
         <?php } ?>
