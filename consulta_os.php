@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include "include/conexao.php";
 include "include/navbar.php";
 function converterDataBanco($dataCompra) {
@@ -49,7 +50,7 @@ if (isset($_POST['buscar'])) {
     $cond .= "os.$tipo_data BETWEEN '$dataInicioConvertida' AND '$dataFimConvertida' AND ";
   }
   $cond = rtrim($cond, 'AND ');
-  $where = !empty($cond) ? "WHERE $cond" : "";
+  $where = !empty($cond) ? "WHERE $cond and fabrica = {$_SESSION['fabrica']}" : "";
   $sql =  "SELECT os.*, produto.* FROM os
   LEFT JOIN produto ON os.produto = produto.produto
   $where";
@@ -81,6 +82,9 @@ if (isset($_POST['buscar'])) {
     $defeito = pg_fetch_result($res, $i, 'defeito');
     $tipoAtendimento = pg_fetch_result($res, $i, 'tipo_atendimento');
     $complemento = pg_fetch_result($res, $i, 'complemento');
+    $fabrica = pg_fetch_result($res, $i, 'fabrica');
+    $_SESSION['fabrica'] = $fabrica;
+    
 }
 
 }

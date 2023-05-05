@@ -1,10 +1,16 @@
 <?php
+session_start();
 include "include/conexao.php";
 include "include/navbar.php";
+include "autentica.php";
+if (!isset($_SESSION['logado'])) {
+    header("location:index.php?msg=erro_login");
+    exit;
+}
 if(isset($_GET['tipo_atendimento'])){
     $tipo_atendimento = (int)$_GET["tipo_atendimento"];
 
-    $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica WHERE tipo_atendimento = $tipo_atendimento";
+    $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica WHERE tipo_atendimento = $tipo_atendimento AND fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $codigo = pg_fetch_result($res, 0, 'codido');
@@ -13,8 +19,10 @@ if(isset($_GET['tipo_atendimento'])){
         $ativo = ($ativo == "t") ? "ativo": "inativo";
         $fabrica = pg_fetch_result($res, 0, 'fabrica');
         $nomeFabrica = pg_fetch_result($res, 0, 'nome');
+        $_SESSION['fabrica'] = $fabrica;
     }
 }
+
 
 if(isset($_POST["btncriar"]))
 {   
@@ -220,8 +228,9 @@ $(function () {
 </div>
 
   <?php
-    $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica";
+    $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica WHERE fabrica.fabrica = '{$_SESSION['fabrica']}'";
     $res = pg_query($con, $sql);
+    // echo nl2br($sql); var_dump($_SESSION); exit;
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>
         <div class="alert alert-warning alert-dismissible" role="alert">

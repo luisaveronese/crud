@@ -1,15 +1,17 @@
 <?php
+session_start();
 include "include/conexao.php";
 include "include/navbar.php";
 if(isset($_GET['peca'])){
     $peca = (int)$_GET['peca'];
-    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE peca = $peca";
+    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE peca = $peca AND fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $referencia = pg_fetch_result($res, 0, "referencia");
         $descricao = pg_fetch_result($res, 0, "descricao");
         $fabrica = pg_fetch_result($res, 0, 'fabrica');
         $nomeFabrica = pg_fetch_result($res, 0, 'nome');
+        $_SESSION['fabrica'] = $fabrica;
     }
 }
 
@@ -205,7 +207,7 @@ retornaProduto="anonymous"></script>
         </div>
 </div>
   <?php
-    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica";
+    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     //echo pg_last_error($con); echo nl2br($sql); exit;
     if(pg_num_rows($res) == 0){

@@ -1,15 +1,17 @@
 <?php
+session_start();
 include "include/conexao.php";
 include "include/navbar.php";
 if(isset($_GET['defeito'])){
     $defeito = (int)$_GET['defeito'];
-    $sql = "SELECT defeito.*, fabrica.* FROM defeito JOIN fabrica ON defeito.fabrica = fabrica.fabrica WHERE defeito = $defeito";
+    $sql = "SELECT defeito.*, fabrica.* FROM defeito JOIN fabrica ON defeito.fabrica = fabrica.fabrica WHERE defeito = $defeito AND fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $codigo = pg_fetch_result($res, 0, "codigo");
         $descricao = pg_fetch_result($res, 0, "descricao");
         $fabrica = pg_fetch_result($res, 0, 'fabrica');
         $nomeFabrica = pg_fetch_result($res, 0, 'nome');
+        $_SESSION['fabrica'] = $fabrica;
     }
 }
 if(isset($_POST["btncriar"]))
@@ -202,7 +204,7 @@ $(function () {
         </div>
 </div>
   <?php
-    $sql = "SELECT defeito.*, fabrica.* FROM defeito JOIN fabrica ON defeito.fabrica = fabrica.fabrica";
+    $sql = "SELECT defeito.*, fabrica.* FROM defeito JOIN fabrica ON defeito.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>

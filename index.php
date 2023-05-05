@@ -3,14 +3,7 @@ function data ($data) {
     $invertedData = array_reverse (explode("/", $data));
     return implode ("-", $invertedData);
 }
-
-
 include "include/conexao.php";
-
-
-
-
-
 session_start();
     if (isset($_POST['btncriar'])) {
         $email= $_POST['email'];
@@ -29,14 +22,18 @@ session_start();
         if(strlen(trim($mensagem))==0){
             $sql = "SELECT * FROM usuario WHERE email = '$email' and senha= '$senha'";
             $res = pg_query($con, $sql);
-
             if(pg_num_rows($res)==1){
+                $fabrica = pg_fetch_result($res, 0, 'fabrica');
                 $_SESSION['logado'] = true;
+                $_SESSION['fabrica'] = $fabrica;
                 header("location:sistema.php");
-            }else{
+            
+            }
+            else{
                 $erro = true;
                 $mensagem = "Verifique os campos corretamente";
             }
+            //var_dump($_SESSION); exit;
         }
     }
 ?>

@@ -1,9 +1,10 @@
 <?php
+session_start();
 include "include/conexao.php";
 include "include/navbar.php";
 if(isset($_GET['produto'])){
     $produto = (int)$_GET['produto'];
-    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE produto = $produto";
+    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE produto = $produto AND fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $referencia = pg_fetch_result($res, 0, "referencia");
@@ -13,6 +14,7 @@ if(isset($_GET['produto'])){
         $ativo = ($ativo == "t") ? "ativo": "inativo";
         $fabrica = pg_fetch_result($res, 0, 'fabrica');
         $nomeFabrica = pg_fetch_result($res, 0, 'nome');
+        $_SESSION['fabrica'] = $fabrica;
     }
 }
 
@@ -251,7 +253,7 @@ $(function () {
     
     
   <?php
-    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica";
+    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>

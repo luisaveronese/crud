@@ -1,13 +1,6 @@
 <?php 
-session_start();
 include "include/conexao.php";
-if (!isset($_SESSION['logado'])) {
-    header("location:index.php?msg=erro_login");
-    exit;
-}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
