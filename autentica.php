@@ -11,8 +11,9 @@ if(isset($_POST['email']) && isset($_POST['senha'])){
         $sql = "SELECT * FROM usuario WHERE email= '$email' and senha='$senha'";
         $res = pg_query($con, $sql);
 
-        if(pg_num_row($res)==0){
+        if(pg_num_rows($res)==0){
             $_SESSION['logado'] = true;
+            $_SESSION['fabrica'];
             header("location:sistema.php"); 
         }else{
             $erro = true;

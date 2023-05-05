@@ -16,8 +16,7 @@ if(isset($_GET['peca'])){
 
 
 
-if(isset($_POST["btncriar"]))
-{   
+if(isset($_POST["btncriar"])){   
     $mensagem = "";
     $erro = "";
     $pecaValidada = True;
