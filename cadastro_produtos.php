@@ -3,7 +3,7 @@ include "include/conexao.php";
 include "include/navbar.php";
 if(isset($_GET['produto'])){
     $produto = (int)$_GET['produto'];
-    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica";
+    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE produto = $produto";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $referencia = pg_fetch_result($res, 0, "referencia");
@@ -226,9 +226,9 @@ $(function () {
                         <label for="fabrica">Fábrica:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-option-vertical"></i>
+                                <i class="glyphicon glyphicon-compressed"></i>
                             </span>
-                        <input type="text" name="nome_fabrica" placeholder="Clique no botão pesquisar para selecionar" class="nome_fabrica form-control" maxlength=50 id="fabrica" value="<?= $nomeFabrica; ?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" name="nome_fabrica" placeholder="Clique na lupa para selecionar" class="nome_fabrica form-control" maxlength=50 id="fabrica" value="<?= $nomeFabrica; ?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro4" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>

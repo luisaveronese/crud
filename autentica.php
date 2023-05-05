@@ -7,17 +7,7 @@ if(isset($_POST['email']) && isset($_POST['senha'])){
     $email = $_POST['email'];
     $senha = $_POST['senha'];
     
-    
-    // if(strlen(trim($email)) == 0) {
-    //     header("location:index.php?msg=erro_dados");  
-    // }
-    // if(strlen(trim($email)) == 0) {
-    //     header("location:index.php?msg=erro_dados");  
-    // }
-    //   if($email == 'admin@gmail.com' && $senha == '123') {
-    //       header("location:sistema.php");
-    //   }
-      if (strlen(trim($msg))==0){
+      if (strlen($msg)==0){
         $sql = "SELECT * FROM usuario WHERE email= '$email' and senha='$senha'";
         $res = pg_query($con, $sql);
 

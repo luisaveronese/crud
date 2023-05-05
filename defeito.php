@@ -3,7 +3,7 @@ include "include/conexao.php";
 include "include/navbar.php";
 if(isset($_GET['defeito'])){
     $defeito = (int)$_GET['defeito'];
-    $sql = "SELECT defeito.*, fabrica.* FROM defeito JOIN fabrica ON defeito.fabrica = fabrica.fabrica";
+    $sql = "SELECT defeito.*, fabrica.* FROM defeito JOIN fabrica ON defeito.fabrica = fabrica.fabrica WHERE defeito = $defeito";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $codigo = pg_fetch_result($res, 0, "codigo");
@@ -183,7 +183,7 @@ $(function () {
                         <label for="nome_fabrica">Fábrica</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-option-vertical"></i>
+                                <i class="glyphicon glyphicon-compressed"></i>
                             </span>
                         <input type="text" name="nome_fabrica" placeholder="Clique na lupa para selecionar" class="nome_fabrica form-control" maxlength=50 id="nome_fabrica" value="<?= $nomeFabrica; ?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
