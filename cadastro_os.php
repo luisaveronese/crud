@@ -12,7 +12,10 @@ function converterDataBanco($dataCompra) {
 if(isset($_GET['os'])){
     $os = (int)$_GET['os'];
     $produto = (int)$_GET['produto'];
-    $sql = "SELECT * FROM os WHERE os = $os";
+    $sql = "SELECT os.*, produto.*, fabrica.*, defeito.defeito, defeito.descricao as defeito_descricao FROM os 
+    JOIN produto ON os.produto = produto.produto 
+    JOIN fabrica ON os.fabrica = fabrica.fabrica
+    JOIN defeito ON os.defeito = defeito.defeito";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $os = pg_fetch_result($res, $i, 'os');
@@ -40,6 +43,9 @@ if(isset($_GET['os'])){
         $descricao = pg_fetch_result($res, $i, 'descricao');
         $tipo_atendimento = pg_fetch_result($res, $i, 'tipo_atendimento');
         $complemento = pg_fetch_result($res, $i, 'complemento');
+        $fabrica = pg_fetch_result($res, $i, 'fabrica');
+        $nomeFabrica = pg_fetch_result($res, $i, 'nome');
+        $descricaoDefeito = pg_fetch_result($res, $i, 'defeito_descricao');
     }
 }
 function converterData($data){
@@ -166,6 +172,8 @@ if(isset($_POST["btngravar"])) {
     }
     $novoAtendimento = $_POST['tipo_atendimento'];
     $os = (int)$_GET['os'];
+    $produto = $_POST['produto'];
+    $fabrica = $_POST['fabrica'];
 
     if($erro == false){
         if(empty($novoEmail)){
@@ -280,6 +288,7 @@ if(isset($_POST["btngravar"])) {
         $cadastroOsValidado = False;
         $msg = "O campo Atendimento não pode ficar vazio!";
     }
+
     if($erro == false && $cadastroOsValidado = True){
         if($os == 0){
            $sql_insert = "INSERT INTO os(data_abertura,
@@ -303,7 +312,9 @@ if(isset($_POST["btngravar"])) {
             referencia,
             descricao,
             complemento,
-            tipo_atendimento) VALUES 
+            tipo_atendimento,
+            produto,
+            fabrica) VALUES 
             ('$dataAberturaConvertida', 
             '$novaNf',
             '$dataCompraConvertida',
@@ -325,7 +336,9 @@ if(isset($_POST["btngravar"])) {
             '$novaReferencia',
             '$novaDesc',
             '$novoComplemento',
-            '$novoAtendimento')";
+            '$novoAtendimento',
+            '$produto',
+            '$fabrica')";
              
         }else{
             $sql_insert = "UPDATE os SET 
@@ -350,11 +363,13 @@ if(isset($_POST["btngravar"])) {
             descricao = '$novaDesc',
             defeito = '$novoDefeito',
             complemento = '$novoComplemento',
-            tipo_atendimento = '$novoAtendimento' 
+            tipo_atendimento = '$novoAtendimento', 
+            produto = '$produto',
+            fabrica = '$fabrica'
             WHERE os = $os";
         }
-        // $res_insert = pg_query($con, $sql_insert);
-        // echo nl2br($res_insert); echo pg_last_error($con); exit; 
+        $res_insert = pg_query($con, $sql_insert);
+        echo nl2br($sql_insert); echo pg_last_error($con); exit; 
         if(strlen(pg_last_error($con)) == 0){
             $msg = "Ordem de serviço solicitada com sucesso!";
             $codigo = "";
@@ -380,6 +395,7 @@ if(isset($_POST["btngravar"])) {
             $defeito = "";
             $complemento = "";
             $tipo_atendimento = "";
+            $fabrica = "";
         }else{
             $msg = "Falha ao solicitar ordem de serviço.";
         }
@@ -455,6 +471,7 @@ retornaProduto="anonymous"></script>
         var defeito = document.getElementById("defeito");
         var desc = document.getElementById("desc");
         var atendimento = document.getElementById("tipo_atendimento");
+        var fabrica = document.getElementById("nome_fabrica");
         
         if (dataAbertura.value == ""){
             dataAbertura.classList.add("error");
@@ -579,6 +596,14 @@ retornaProduto="anonymous"></script>
         if(atendimento.value == ""){
             atendimento.classList.add("error");
             msg20 = "O campo tipo de atendimento não pode ficar vazio!\n";
+        }else{
+            atendimento.classList.remove("error");
+        }
+        if(fabrica.value == ""){
+            fabrica.classList.add("error");
+            msg22 = "O campo fábrica não pode ficar vazio!\n";
+        }else{
+            fabrica.classList.remove("error");
         }
 
         if (msg1 == "" && msg2 == "" && msg3 == "" && msg4 == "" && msg5 == "" && msg6 == "" && msg7 == "" && msg8 == "" && msg9 == "" && msg10 == "" && msg11 == "" && msg12 == "" && msg13 == "" && msg14 == "" && msg15 == "" && msg16 == "" && msg17 == "" && msg18 == "" && msg19 == "" && msg20 == "" && msg21 == "") {
@@ -603,6 +628,7 @@ retornaProduto="anonymous"></script>
             $("#msg-erro19").text(msg19);
             $("#msg-erro20").text(msg20);
             $("#msg-erro21").text(msg21);
+            $("#msg-erro22").text(msg22);
         }else {
             $("#msg-erro1").text(msg1).show();
             $("#msg-erro2").text(msg2).show();
@@ -625,6 +651,7 @@ retornaProduto="anonymous"></script>
             $("#msg-erro19").text(msg19).show();
             $("#msg-erro20").text(msg20).show();
             $("#msg-erro21").text(msg21).show();
+            $("#msg-erro22").text(msg22).show();
             document.querySelector('form').addEventListener('submit', function(event) {
             event.preventDefault();
             });
@@ -689,6 +716,27 @@ retornaProduto="anonymous"></script>
             $(".codigo_atendimento").val(tipo_atendimento);
             $(".tipo_atendimento").val(tipo_atendimento);
         }
+
+
+        $(function () { 
+            Shadowbox.init();
+            $(".pesquisaFabrica").click(function(){
+                var nome = $(".nome").val(); 
+                console.log("nome ", nome);
+                Shadowbox.open({
+                    content:    "tabela_fabrica.php?fabrica="+nome,
+                    player: "iframe",
+                    title:  "",
+                    width:  1300,
+                    height: 600
+                });
+            });
+        });
+    function retornaFabrica(fabrica, nome_fabrica){
+        console.log("chegou aqui"+nome_fabrica)
+        $(".fabrica").val(fabrica);
+        $(".nome_fabrica").val(nome_fabrica);
+    };
     </script>
 </head>
 <body>
@@ -702,8 +750,6 @@ retornaProduto="anonymous"></script>
                 </div>
                 <div class="panel-body">
                     <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
-                    <input type="hidden" class="os" value="<?= $os; ?>">
-                    <input type="hidden" class="produto" value="<?= $produto; ?>">
                         <h5>Dados da abertura:</h5>
                         <label for="data">Data de abertura:</label><label class="required">*</label>
                         <div class="input-group">
@@ -731,7 +777,6 @@ retornaProduto="anonymous"></script>
                         <input type="text" name="tipo_atendimento" placeholder="Selecione o tipo de atendimento" class="codigo_atendimento form-control" id="tipo_atendimento" value="<?= $tipo_atendimento; ?>"><span class="buscar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro20" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
-                        <input type="hidden" class="tipo_atendimento" value="<?= $tipo_atendimento ?>">
                         <br>
                         <h5>Dados da compra:</h5>
                         <label for="date">Data da compra:</label><label class="required">*</label>
@@ -870,6 +915,15 @@ retornaProduto="anonymous"></script>
                         <div class="msg_erro alert alert-danger" id="msg-erro15" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <h5>Dados do produto:</h5>
+                        <label for="nome_fabrica">Fábrica:</label><label class="required">*</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-compressed"></i>
+                            </span>
+                        <input type="text" name="nome_fabrica" id="nome_fabrica" placeholder="Clique na lupa para selecionar" class="nome_fabrica form-control" maxlength=50 value="<?= $nomeFabrica; ?>"><span class="pesquisaFabrica input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        </div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro22" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
+                        <br>
                         <label for="numero_serie">Número de série:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -879,7 +933,6 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro16" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                          <div class="input-group">
-                        <input type="hidden" name="produto" placeholder="produto" class="form-control produto">
                         </div>
                         <br>
                         <label for="referencia">Referência:</label><label class="required">*</label>
@@ -900,7 +953,6 @@ retornaProduto="anonymous"></script>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro18" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <div class="input-group">
-                        <input type="hidden" name="produto" placeholder="produto" class="form-control descricao_defeito">
                         </div>
                         <br>
                         <label for="defeito">Defeito:</label><label class="required">*</label>
@@ -908,10 +960,15 @@ retornaProduto="anonymous"></script>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
                             </span>
-                        <input type="text" name="defeito" placeholder="Ex.: problemas ao resfriar" class="form-control codigo_defeito" id="defeito" value="<?= $id_defeito; ?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" name="defeito" placeholder="Ex.: problemas ao resfriar" class="form-control descricao_defeito" id="defeito" value="<?= $descricaoDefeito; ?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro19" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
+                        <input type="hidden" class="os" value="<?= $os; ?>">
+                        <input type="hidden" name="produto" class="produto" value="<?= $produto; ?>">
+                        <input type="hidden" name="codigo_defeito" class="codigo_defeito" value= "<?= $defeito ?>">
+                        <input type="hidden" class="tipo_atendimento" value="<?= $tipo_atendimento ?>">
+                        <input type="hidden" name="fabrica" class="fabrica" value="<?= $fabrica; ?>">
                         <div class="text-center">
                             <button name ="btngravar" value="t" type="submit" onclick="validateForm()" class="btn btn-primary">Cadastrar</button>
                         </div>

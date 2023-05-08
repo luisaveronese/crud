@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include "include/conexao.php";
 include "include/navbar.php";
 function converterDataBanco($dataCompra) {
@@ -50,12 +49,13 @@ if (isset($_POST['buscar'])) {
     $cond .= "os.$tipo_data BETWEEN '$dataInicioConvertida' AND '$dataFimConvertida' AND ";
   }
   $cond = rtrim($cond, 'AND ');
-  $where = !empty($cond) ? "WHERE $cond and fabrica = {$_SESSION['fabrica']}" : "";
-  $sql =  "SELECT os.*, produto.* FROM os
-  LEFT JOIN produto ON os.produto = produto.produto
+  $where = !empty($cond) ? "WHERE $cond" : "";
+  $sql =  "SELECT os.*, produto.*, fabrica.* FROM os 
+  INNER JOIN produto ON os.produto = produto.produto 
+  INNER JOIN fabrica ON os.fabrica = fabrica.fabrica 
   $where";
   $res = pg_query($con, $sql);
-  // echo $tipo_data; echo pg_last_error($con); exit;
+  //echo nl2br($sql); echo pg_last_error($con); exit;
   for ($i = 0; $i < pg_num_rows($res); $i ++){
     
     $os = pg_fetch_result($res, $i, 'os');
@@ -83,8 +83,7 @@ if (isset($_POST['buscar'])) {
     $tipoAtendimento = pg_fetch_result($res, $i, 'tipo_atendimento');
     $complemento = pg_fetch_result($res, $i, 'complemento');
     $fabrica = pg_fetch_result($res, $i, 'fabrica');
-    $_SESSION['fabrica'] = $fabrica;
-    
+    $nomeFabrica = pg_fetch_result($res, $i, 'nome');
 }
 
 }
@@ -217,6 +216,7 @@ retornaProduto="anonymous"></script>
           <th>Telefone</th>
           <th>Celular</th>
           <th>E-mail</th>
+          <th>Fábrica</th>
           <th>Número de Série</th>
           <th>Referência</th>
           <th>Descrição</th>
@@ -252,6 +252,8 @@ retornaProduto="anonymous"></script>
               $defeito = pg_fetch_result($res, $i, 'defeito');
               $atendimento = pg_fetch_result($res, $i, 'tipo_atendimento');
               $complemento = pg_fetch_result($res, $i, 'complemento');
+              $fabrica = pg_fetch_result($res, $i, 'fabrica');
+              $nomeFabrica = pg_fetch_result($res, $i, 'nome');
           ?>
           <tr>
             <td class="tac"><?= $os;?></td>
@@ -273,6 +275,7 @@ retornaProduto="anonymous"></script>
             <td class="tac"><?= $telefone;?></td>
             <td class="tac"><?= $celular;?></td>
             <td class="tac"><?= $email;?></td>
+            <td class="tac"><?= $nomeFabrica; ?></td>
             <td class="tac"><?= $numeroSerie;?></td>
             <td class="tac"><?= $referencia;?></td>
             <td class="tac"><?= $descricao;?></td>

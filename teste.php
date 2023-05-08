@@ -35,7 +35,6 @@
     <table id= "resultado_tipo_solicitacao" class="table table-striped table-bordered table-hover table-large table-fixed">
       <th>
         <tr class="titulo_coluna">
-          <th>Produto</th>
           <th>Referência</th>
           <th>Descrição</th>
         </tr>
@@ -45,13 +44,12 @@
           for ($i = 0; $i < pg_num_rows($res); $i ++){
             $produto = pg_fetch_result($res, $i, 'produto');
             $referencia = pg_fetch_result($res, $i, 'referencia');
-            $descricao = pg_fetch_result($res, $i, 'descricao');
+            $descricaoDefeito = pg_fetch_result($res, $i, 'descricao');
           
         ?>
         <tr>
-            <td class="tac"><a href="#" onclick="window.parent.retornaProduto(<?=$produto?> , '<?=$referencia?>' , '<?=$descricao?>'); window.parent.Shadowbox.close()"><?= $produto;?></a></td>
-            <td class="tac"><a href="#" onclick="window.parent.retornaProduto(<?=$produto?> , '<?=$referencia?>' , '<?=$descricao?>'); window.parent.Shadowbox.close()"><?= $referencia; ?></a></td>
-            <td class="tac"><a href="#" onclick="window.parent.retornaProduto(<?=$produto?> , '<?=$referencia?>' , '<?=$descricao?>'); window.parent.Shadowbox.close()"><?= $descricao; ?></a></td>
+            <td class="tac"><a href="#" onclick="window.parent.retornaProduto(<?=$produto?> , '<?=$referencia?>' , '<?=$descricaoDefeito?>'); window.parent.Shadowbox.close()"><?= $referencia; ?></a></td>
+            <td class="tac"><a href="#" onclick="window.parent.retornaProduto(<?=$produto?> , '<?=$referencia?>' , '<?=$descricaoDefeito?>'); window.parent.Shadowbox.close()"><?= $descricao; ?></a></td>
         </tr>
         <?php } ?>
       </tbody>
