@@ -2,7 +2,6 @@
 session_start();
 include "include/conexao.php";
 include "include/navbar.php";
-include "autentica.php";
 if (!isset($_SESSION['logado'])) {
     header("location:index.php?msg=erro_login");
     exit;
