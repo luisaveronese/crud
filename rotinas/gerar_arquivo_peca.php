@@ -2,12 +2,12 @@
 include "../include/conexao.php";
 
 
-$query_pecas = "SELECT * FROM peca";
+$result_pecas = pg_query($con, "SELECT * FROM peca");
+$row = pg_fetch_assoc($result_pecas);
 
-$result_pecas = $con->query($query_pecas);
 
 $file_pecas = fopen('pecas.csv', 'w');
-while ($row = $result_pecas->fetch(PDO::FETCH_ASSOC)) {
+while ($row = pg_fetch_assoc($result_pecas)) {
     fputcsv($file_pecas, $row);
 }
 fclose($file_pecas);

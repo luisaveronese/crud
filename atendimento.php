@@ -249,6 +249,7 @@ $(function () {
           <th>Fábrica</th>
           <th>Status</th>
           <th>Ação</th>
+          <th><a href="rotinas/gerar_arquivo_atendimento.php"><button class="btn btn-primary">Exportar .csv</a></button></th>
         </tr>
       </th>
       <tbody>

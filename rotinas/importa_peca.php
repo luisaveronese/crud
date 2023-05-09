@@ -17,7 +17,7 @@ foreach ($dados_csv as $linha) {
   $referencia = $linha[0];
   $descricao = $linha[1];
 
-  $query = "INSERT INTO peca (referencia, descricao, fabrica) VALUES ('$referencia', '$descricao', '2')";
+  $query = "INSERT INTO peca (referencia, descricao) VALUES ('$referencia', '$descricao')";
   $res = pg_query($con, $query);
 }
 ?>

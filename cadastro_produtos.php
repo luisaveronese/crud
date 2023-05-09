@@ -275,6 +275,7 @@ $(function () {
           <th>Status</th>
           <th>Fábrica</th>
           <th>Ação</th>
+          <th><a href="rotinas/gerar_arquivo_produto.php"><button class="btn btn-primary">Exportar .csv</a></button></th>
         </tr>
       </th>
       <tbody>

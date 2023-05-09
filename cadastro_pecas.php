@@ -229,6 +229,7 @@ retornaProduto="anonymous"></script>
           <th>Descrição</th>
           <th>Fábrica</th>
           <th>Ação</th>
+          <th><a href="rotinas/gerar_arquivo_peca.php"><button class="btn btn-primary">Exportar .csv</a></button></th>
         </tr>
       </th>
       <tbody>

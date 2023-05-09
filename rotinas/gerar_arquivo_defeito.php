@@ -2,15 +2,13 @@
 include "../include/conexao.php";
 
 
-$query_defeitos = "SELECT * FROM defeito";
+$result_defeito = pg_query($con, "SELECT * FROM defeito");
 
-$result_defeitos = $con->query($query_defeitos);
-
-$file_defeitos = fopen('defeitos.csv', 'w');
-while ($row = $result_defeitos->fetch(PDO::FETCH_ASSOC)) {
-    fputcsv($file_defeitos, $row);
+$file_defeito = fopen('defeito.csv', 'w');
+while ($row = pg_fetch_assoc($result_defeito)) {
+    fputcsv($file_defeito, $row);
 }
-fclose($file_defeitos);
+fclose($file_defeito);
 
 
 

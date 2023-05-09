@@ -224,6 +224,7 @@ $(function () {
           <th>Descrição</th>
           <th>Fábrica</th>
           <th>Ação</th>
+          <th><a href="rotinas/gerar_arquivo_defeito.php"><button class="btn btn-primary">Exportar .csv</a></button></th>
         </tr>
       </th>
       <tbody>

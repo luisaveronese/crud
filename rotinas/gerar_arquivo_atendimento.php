@@ -1,12 +1,10 @@
 <?php
 include "../include/conexao.php";
 
-$query_atendimentos = "SELECT * FROM atendimento";
-
-$result_atendimentos = $con->query($query_atendimentos);
+$result_atendimento = pg_query($con, "SELECT * FROM tipo_atendimento");
 
 $file_atendimentos = fopen('atendimentos.csv', 'w');
-while ($row = $result_atendimentos->fetch(PDO::FETCH_ASSOC)) {
+while ($row = pg_fetch_assoc($result_atendimento)) {
     fputcsv($file_atendimentos, $row);
 }
 fclose($file_atendimentos);
