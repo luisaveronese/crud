@@ -190,7 +190,7 @@ retornaProduto="anonymous"></script>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-compressed"></i>
                             </span>
-                        <input type="text" name="nome_fabrica" placeholder="Clique no botão pesquisar para selecionar" class="nome_fabrica form-control" maxlength=50 id="nome_fabrica" value="<?=$nomeFabrica?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" name="nome_fabrica" placeholder="Clique na lupa para selecionar" class="nome_fabrica form-control" maxlength=50 id="nome_fabrica" value="<?=$nomeFabrica?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                         <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
