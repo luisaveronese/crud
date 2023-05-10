@@ -2,6 +2,7 @@
 session_start();
 include "include/conexao.php";
 include "include/navbar.php";
+//include "rotinas/gerar_arquivo_produto.php";
 if(isset($_GET['produto'])){
     $produto = (int)$_GET['produto'];
     $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE produto = $produto AND fabrica = {$_SESSION['fabrica']}";
@@ -245,9 +246,21 @@ $(function () {
                         </div>
                         <br>
                         <div class="panel-footer text-center"><?= $mensagem ?></div>
-                    </form> 
+                    </form>
             </div>  
         </div>
+
+        <?php 
+            if(isset($_GET['msg'])){
+                $msgExt = $_GET['msg'] == 'download' ? 'Exportação concluída com sucesso.' : '';
+            ?>
+                <div class="alerta alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <?= $msgExt ?>
+                </div>
+            <?php 
+            }
+        ?>
     
 
     
@@ -275,7 +288,7 @@ $(function () {
           <th>Status</th>
           <th>Fábrica</th>
           <th>Ação</th>
-          <th><a href="rotinas/gerar_arquivo_produto.php"><button class="btn btn-primary">Exportar .csv</a></button></th>
+          <th><a href="rotinas/gerar_arquivo_produto.php"><button><img src="assets/favicon-csv.png"></a></button></th>
         </tr>
       </th>
       <tbody>

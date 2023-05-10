@@ -8,6 +8,7 @@ while ($row = pg_fetch_assoc($result_atendimento)) {
     fputcsv($file_atendimentos, $row);
 }
 fclose($file_atendimentos);
+header('Location:../atendimento.php?msg=download');
 
 
 ?>

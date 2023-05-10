@@ -203,6 +203,18 @@ $(function () {
             </div>
         </div>
 </div>
+
+<?php 
+    if(isset($_GET['msg'])){
+        $msgExt = $_GET['msg'] == 'download' ? 'Exportação concluída com sucesso.' : '';
+    ?>
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <?= $msgExt ?>
+        </div>
+    <?php 
+    }
+?>
   <?php
     $sql = "SELECT defeito.*, fabrica.* FROM defeito JOIN fabrica ON defeito.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
@@ -224,7 +236,7 @@ $(function () {
           <th>Descrição</th>
           <th>Fábrica</th>
           <th>Ação</th>
-          <th><a href="rotinas/gerar_arquivo_defeito.php"><button class="btn btn-primary">Exportar .csv</a></button></th>
+          <th><a href="rotinas/gerar_arquivo_defeito.php"><button><img src="assets/favicon-csv.png"></a></button></th>
         </tr>
       </th>
       <tbody>

@@ -11,6 +11,7 @@ while ($row = pg_fetch_assoc($result_pecas)) {
     fputcsv($file_pecas, $row);
 }
 fclose($file_pecas);
+header('Location:../cadastro_pecas.php?msg=download');
 
 
 

@@ -13,6 +13,7 @@ while ($row = pg_fetch_assoc($result_produtos)) {
     fputcsv($file_produtos, $row);
 }
 fclose($file_produtos);
+header('Location:../cadastro_produtos.php?msg=download');
 
 
 ?>
