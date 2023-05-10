@@ -13,7 +13,18 @@ while ($row = pg_fetch_assoc($result_produtos)) {
     fputcsv($file_produtos, $row);
 }
 fclose($file_produtos);
-header('Location:../cadastro_produtos.php?msg=download');
+$file_path = 'produtos.csv';
+$file_name = basename($file_path);
+$file_size = filesize($file_path);
+
+header('Content-Type: application/csv');
+header('Content-Disposition: attachment; filename="' . $file_name . '"');
+header('Content-Length: ' . $file_size);
+header('Pragma: no-cache');
+header('Expires: 0');
+readfile($file_path);
+
+exit;
 
 
 ?>
