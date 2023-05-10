@@ -16,10 +16,6 @@ if(isset($_GET['peca'])){
         $_SESSION['fabrica'] = $fabrica;
     }
 }
-
-
-
-
 if(isset($_POST["btncriar"])){   
     $mensagem = "";
     $erro = "";
@@ -209,7 +205,7 @@ retornaProduto="anonymous"></script>
         </div>
 </div>
   <?php
-    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
+    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE peca.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>
