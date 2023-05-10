@@ -5,7 +5,7 @@ include "include/navbar.php";
 //include "rotinas/gerar_arquivo_produto.php";
 if(isset($_GET['produto'])){
     $produto = (int)$_GET['produto'];
-    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE produto = $produto AND fabrica = {$_SESSION['fabrica']}";
+    $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE produto = $produto AND produto.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $referencia = pg_fetch_result($res, 0, "referencia");

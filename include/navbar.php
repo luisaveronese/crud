@@ -1,6 +1,4 @@
-<?php 
-include "include/conexao.php";
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

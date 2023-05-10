@@ -1,7 +1,9 @@
 <?php
+session_start();
 include "../include/conexao.php";
 
-$result_defeito = pg_query($con, "SELECT * FROM defeito");
+$fabrica = $_SESSION['fabrica'];
+$result_defeito = pg_query($con, "SELECT * FROM defeito WHERE fabrica = $fabrica");
 
 $file_defeito = fopen('defeito.csv', 'w');
 while ($row = pg_fetch_assoc($result_defeito)) {
@@ -20,5 +22,5 @@ header('Pragma: no-cache');
 header('Expires: 0');
 readfile($file_path);
 
-exit(header('Location: ../defeito.php?msg=download'));
+exit;
 ?>

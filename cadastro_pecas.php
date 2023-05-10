@@ -2,10 +2,13 @@
 session_start();
 include "include/conexao.php";
 include "include/navbar.php";
+//var_dump($con); exit;
 if(isset($_GET['peca'])){
+
     $peca = (int)$_GET['peca'];
-    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE peca = $peca AND fabrica = {$_SESSION['fabrica']}";
+    $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE peca = $peca AND peca.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
+
     if(pg_num_rows($res) > 0){
         $referencia = pg_fetch_result($res, 0, "referencia");
         $descricao = pg_fetch_result($res, 0, "descricao");
@@ -206,21 +209,10 @@ retornaProduto="anonymous"></script>
             </div>
         </div>
 </div>
-<?php 
-    if(isset($_GET['msg'])){
-        $msgExt = $_GET['msg'] == 'download' ? 'Exportação concluída com sucesso.' : '';
-    ?>
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <?= $msgExt ?>
-        </div>
-    <?php 
-    }
-?>
   <?php
     $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
-    //echo pg_last_error($con); echo nl2br($sql); exit;
+    //echo pg_last_error($con); var_dump($res); echo nl2br($sql); exit;
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>
         <div class="alert alert-warning alert-dismissible" role="alert">

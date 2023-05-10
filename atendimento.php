@@ -9,7 +9,7 @@ if (!isset($_SESSION['logado'])) {
 if(isset($_GET['tipo_atendimento'])){
     $tipo_atendimento = (int)$_GET["tipo_atendimento"];
 
-    $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica WHERE tipo_atendimento = $tipo_atendimento AND fabrica = {$_SESSION['fabrica']}";
+    $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica WHERE tipo_atendimento = $tipo_atendimento AND tipo_atendimento.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
     if(pg_num_rows($res) > 0){
         $codigo = pg_fetch_result($res, 0, 'codido');
