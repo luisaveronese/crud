@@ -2,7 +2,6 @@
 session_start();
 include "include/conexao.php";
 include "include/navbar.php";
-//var_dump($con); exit;
 if(isset($_GET['peca'])){
 
     $peca = (int)$_GET['peca'];
@@ -212,7 +211,6 @@ retornaProduto="anonymous"></script>
   <?php
     $sql = "SELECT peca.*, fabrica.* FROM peca JOIN fabrica ON peca.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);
-    //echo pg_last_error($con); var_dump($res); echo nl2br($sql); exit;
     if(pg_num_rows($res) == 0){
         $alert = "Aviso! Não exitem registros cadastrados."; ?>
         <div class="alert alert-warning alert-dismissible" role="alert">

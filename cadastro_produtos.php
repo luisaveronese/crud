@@ -2,7 +2,6 @@
 session_start();
 include "include/conexao.php";
 include "include/navbar.php";
-//include "rotinas/gerar_arquivo_produto.php";
 if(isset($_GET['produto'])){
     $produto = (int)$_GET['produto'];
     $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE produto = $produto AND produto.fabrica = {$_SESSION['fabrica']}";
@@ -249,22 +248,6 @@ $(function () {
                     </form>
             </div>  
         </div>
-
-        <?php 
-            if(isset($_GET['msg'])){
-                $msgExt = $_GET['msg'] == 'download' ? 'Exportação concluída com sucesso.' : '';
-            ?>
-                <div class="alerta alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <?= $msgExt ?>
-                </div>
-            <?php 
-            }
-        ?>
-    
-
-    
-    
   <?php
     $sql = "SELECT produto.*, fabrica.* FROM produto JOIN fabrica ON produto.fabrica = fabrica.fabrica WHERE fabrica.fabrica = {$_SESSION['fabrica']}";
     $res = pg_query($con, $sql);

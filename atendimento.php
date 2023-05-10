@@ -225,19 +225,6 @@ $(function () {
             </div>
         </div>
 </div>
-
-<?php 
-    if(isset($_GET['msg'])){
-        $msgExt = $_GET['msg'] == 'download' ? 'Exportação concluída com sucesso.' : '';
-    ?>
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <?= $msgExt ?>
-        </div>
-    <?php 
-    }
-?>
-
   <?php
     $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica WHERE fabrica.fabrica = '{$_SESSION['fabrica']}'";
     $res = pg_query($con, $sql);
