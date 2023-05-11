@@ -156,6 +156,7 @@ function validateForm() {
             $("#msg-erro4").text(msg4);
             $("#msg-erro5").text(msg5);
             $("#msg-erro6").text(msg6);
+            return true;
         }else {
             $("#msg-erro1").text(msg1).show();
             $("#msg-erro2").text(msg2).show();
@@ -163,8 +164,7 @@ function validateForm() {
             $("#msg-erro4").text(msg4).show();
             $("#msg-erro5").text(msg5).show();
             $("#msg-erro6").text(msg6).show();
-            document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault()});
+            return false;
         }
     };
 
@@ -200,7 +200,7 @@ function validateForm() {
                     Cadastro
                 </div>
                 <div class="panel-body">
-                    <form method="POST" action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" class="form">
+                    <form method="POST" action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="return validateForm()" class="form">
                     <label for="nome">Nome completo:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -249,7 +249,7 @@ function validateForm() {
                         <div class="msg_erro alert alert-danger" id="msg-erro6" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>                    
                         <div class="text-center">
-                            <button type="submit" name= "btncriar" onclick="validateForm()" class="btn btncriar btn-primary">Cadastrar</button>
+                            <button type="submit" name= "btncriar" onclick="return validateForm()" class="btn btncriar btn-primary">Cadastrar</button>
                         </div>
                         <br>
                         <p class="link">Já possui conta? <a href="index.php">Fazer login</a></p>

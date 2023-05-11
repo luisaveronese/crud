@@ -122,13 +122,12 @@ retornaProduto="anonymous"></script>
             $("#msg-erro1").text(msg1);
             $("#msg-erro2").text(msg2);
             $("#msg-erro3").text(msg3);
+            return true;
         }else {
             $("#msg-erro1").text(msg1).show();
             $("#msg-erro2").text(msg2).show();
             $("#msg-erro3").text(msg3).show();
-            document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            });
+            return false;
         }
     };
 ;
@@ -163,7 +162,7 @@ $(function () {
                     Reportar defeito
                 </div>
                 <div class="panel-body">
-                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
+                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="return validateForm()" method="POST" class="form">
                     <label for="codigo">Código</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -189,12 +188,12 @@ $(function () {
                             </span>
                         <input type="text" name="nome_fabrica" placeholder="Clique na lupa para selecionar" class="nome_fabrica form-control" maxlength=50 id="nome_fabrica" value="<?= $nomeFabrica; ?>"><span class="pesquisar input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
-                        <div class="msg_erro alert alert-danger" id="msg-erro1" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
+                        <div class="msg_erro alert alert-danger" id="msg-erro3" style="display:none" <?= !empty($mensagem) ? "" : 'style="display:none"'?>></div>
                         <br>
                         <input type="hidden" name="fabrica" class="fabrica" value="<?= $fabrica; ?>">      
                         <input type="hidden" name="defeito" value="<?= $defeito; ?>">        
                         <div class="text-center">
-                            <button name="btncriar" onclick="validateForm()" type="submit" class="btn btn-primary">Enviar</button>
+                            <button name="btncriar" onclick="return validateForm()" type="submit" class="btn btn-primary">Enviar</button>
                         </div>
                         <br>
                     </form>

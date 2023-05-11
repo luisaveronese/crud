@@ -629,6 +629,7 @@ retornaProduto="anonymous"></script>
             $("#msg-erro20").text(msg20);
             $("#msg-erro21").text(msg21);
             $("#msg-erro22").text(msg22);
+            return true;
         }else {
             $("#msg-erro1").text(msg1).show();
             $("#msg-erro2").text(msg2).show();
@@ -652,9 +653,7 @@ retornaProduto="anonymous"></script>
             $("#msg-erro20").text(msg20).show();
             $("#msg-erro21").text(msg21).show();
             $("#msg-erro22").text(msg22).show();
-            document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            });
+            return false;
         }
     };
 ;
@@ -749,7 +748,7 @@ retornaProduto="anonymous"></script>
                     Cadastro OS
                 </div>
                 <div class="panel-body">
-                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
+                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="return validateForm()" method="POST" class="form">
                         <h5>Dados da abertura:</h5>
                         <label for="data">Data de abertura:</label><label class="required">*</label>
                         <div class="input-group">
@@ -970,7 +969,7 @@ retornaProduto="anonymous"></script>
                         <input type="hidden" class="tipo_atendimento" value="<?= $tipo_atendimento ?>">
                         <input type="hidden" name="fabrica" class="fabrica" value="<?= $fabrica; ?>">
                         <div class="text-center">
-                            <button name ="btngravar" value="t" type="submit" onclick="validateForm()" class="btn btn-primary">Cadastrar</button>
+                            <button name ="btngravar" value="t" type="submit" onclick="return validateForm()" class="btn btn-primary">Cadastrar</button>
                         </div>
                     </form>
                 </div>

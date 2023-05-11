@@ -29,6 +29,7 @@ input{
 }
 .msg_erro{
     margin-left: 0px;
+    width: 100%;
 }
 .required{
     font-weight: bold;

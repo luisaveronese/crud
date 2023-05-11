@@ -157,14 +157,13 @@ retornaProduto="anonymous"></script>
             $("#msg-erro2").text(msg2);
             $("#msg-erro3").text(msg3);
             $("#msg-erro4").text(msg4);
+            return true;
         }else {
             $("#msg-erro1").text(msg1).show();
             $("#msg-erro2").text(msg2).show();
             $("#msg-erro3").text(msg3).show();
             $("#msg-erro4").text(msg4).show();
-            document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            });
+            return false;
         }
     };
 ;
@@ -197,7 +196,7 @@ $(function () {
                     Cadastrar Produto
                 </div>
                 <div class="panel-body">
-                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
+                    <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="return validateForm()" method="POST" class="form">
                         <label for="referencia">Referência:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -241,7 +240,7 @@ $(function () {
                         <input type="hidden" name="fabrica" class="fabrica" value="<?= $fabrica; ?>">
                         <input type="hidden" name="produto" value="<?= $produto; ?>">      
                         <div class="text-center">
-                            <button name ="btncriar" type="submit" onclick="validateForm()" class="btn btn-primary">Cadastrar</button>
+                            <button name ="btncriar" type="submit" onclick="return validateForm()" class="btn btn-primary">Cadastrar</button>
                         </div>
                         <br>
                         <div class="panel-footer text-center"><?= $mensagem ?></div>

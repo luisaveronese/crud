@@ -118,7 +118,7 @@ retornaProduto="anonymous"></script>
         var msg3 = "";
         var codigo = document.getElementById("codigo");
         var desc = document.getElementById("desc");
-        var fabrica = document.getElementById("fabrica");
+        var fabrica = document.getElementById("nome_fabrica");
 
 
         if (codigo.value == "") {
@@ -136,18 +136,20 @@ retornaProduto="anonymous"></script>
         if (fabrica.value == ""){
             fabrica.classList.add("error");
             msg3 = "O campo fábrica não pode ficar vazio!\n";
+        }else{
+            fabrica.classList.remove("error");
         }
         if (msg1 == "" || msg2 == "" || msg3 == "") {
             $("#msg-erro1").text(msg1);
             $("#msg-erro2").text(msg2);
             $("#msg-erro3").text(msg3);
+            return true;
+
         }else {
             $("#msg-erro1").text(msg1).show();
             $("#msg-erro2").text(msg2).show();
             $("#msg-erro3").text(msg3).show();
-            document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            });
+            return false;
         }
     };
 ;
@@ -184,7 +186,7 @@ $(function () {
                 </div>
                 
                 <div class="panel-body">
-                <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
+                <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="return validateForm()" method="POST" class="form">
                     <label for="codigo">Código:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -219,7 +221,7 @@ $(function () {
                         <br>
                         <input type="hidden" name="tipo_atendimento" placeholder="tipo_atendimento" class="tipo_atendimento" value="<?= $tipo_atendimento ?>">              
                         <div class="text-center">
-                            <button name="btncriar" type="submit" onclick="validateForm()" class="btn btn-primary">Enviar</button>
+                            <button name="btncriar" type="submit" onclick="return validateForm()" class="btn btn-primary">Enviar</button>
                         </div>
                         <br>
                     </form>

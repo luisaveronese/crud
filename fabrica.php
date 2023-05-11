@@ -96,11 +96,10 @@ if(isset($_POST["btncriar"]))
         }
         if (msg == "") {
             $("#msg-erro").text(msg);
+            return true;
         }else {
             $("#msg-erro").text(msg).show();
-            document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            });
+            return false;
         }
     };
 ;
@@ -115,7 +114,7 @@ if(isset($_POST["btncriar"]))
                     Cadastro de fábrica
                 </div>
                 <div class="panel-body">
-                <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
+                <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="return validateForm()" method="POST" class="form">
                     <label for="nome">Nome:</label><label class="required">*</label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -127,7 +126,7 @@ if(isset($_POST["btncriar"]))
                         <br>
                         <input type="hidden" name="fabrica" placeholder="fabrica" class="fabrica" value="<?= $fabrica ?>">              
                         <div class="text-center">
-                            <button name="btncriar" type="submit" onclick="validateForm()" class="btn btn-primary">Enviar</button>
+                            <button name="btncriar" type="submit" onclick="return validateForm()" class="btn btn-primary">Enviar</button>
                         </div>
                         <br>
                     </form>
