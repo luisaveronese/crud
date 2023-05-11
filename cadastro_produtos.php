@@ -198,6 +198,7 @@ $(function () {
                 <div class="panel-body">
                     <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="return validateForm()" method="POST" class="form">
                         <label for="referencia">Referência:</label><label class="required">*</label>
+                        <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-option-vertical"></i>
@@ -244,6 +245,7 @@ $(function () {
                         </div>
                         <br>
                         <div class="panel-footer text-center"><?= $mensagem ?></div>
+                        </div>
                     </form>
             </div>  
         </div>
