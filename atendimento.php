@@ -176,10 +176,13 @@ $(function () {
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default panel-login">
+            <div class="container-fluid">
+                <div class="row">
+                <div class="panel panel-default panel-login">
                 <div class="panel-heading text-center">
                     Tipo de atendimento
                 </div>
+                
                 <div class="panel-body">
                 <form action="<?php echo $_SERVER['PHP-SELF'];?>" onsubmit="validateForm()" method="POST" class="form">
                     <label for="codigo">Código:</label><label class="required">*</label>
@@ -224,6 +227,8 @@ $(function () {
                 <div class="panel-footer text-center"><?= $mensagem ?></div>
             </div>
         </div>
+                </div>
+            </div>
 </div>
   <?php
     $sql = "SELECT tipo_atendimento.*, fabrica.* FROM tipo_atendimento JOIN fabrica ON tipo_atendimento.fabrica = fabrica.fabrica WHERE fabrica.fabrica = '{$_SESSION['fabrica']}'";
@@ -238,8 +243,8 @@ $(function () {
     <?php }
     if (pg_num_rows($res) > 0){
     ?>
-    <div class="row">
-    <div class="container">
+    <div class="container-fluid">
+        <div class="row">
     <table id= "tipo_atendimento" class="table table-striped table-bordered table-hover table-large table-fixed">
       <th>
         <tr class="titulo_coluna">
