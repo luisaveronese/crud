@@ -37,7 +37,7 @@ if (isset($_POST['buscar'])) {
   $msg = '';
   $numResultados = '';
   if (strlen($nome) > 0) {
-    $cond .= "os.nome_consumidor = '$nome' AND ";
+    $cond .= "os.nome_consumidor ilike '%$nome%' AND ";
   }
   if (strlen($notaFiscal) > 0) {
     $cond .= "os.nota_fiscal = '$notaFiscal' AND ";

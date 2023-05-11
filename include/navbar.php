@@ -22,15 +22,15 @@
   <input type="checkbox" id="checkbox_toggle" />
   <label for="checkbox_toggle" class="hamburger">&#9776;</label>
   <div class="menu">
-  <li><a href="sistema.php">Home</a></li>
-  <li><a href="cadastro_produtos.php">Cadastrar Produtos</a></li>
-  <li><a href="cadastro_pecas.php">Cadastrar Peças</a></li>
-  <li><a href="atendimento.php">Atendimento</a></li>
-  <li><a href="defeito.php">Defeito</a></li>
-  <li><a href="cadastro_os.php">Ordem de Serviço</a></li>
-  <li><a href="consulta_os.php">Consulta OS</a></li>
-  <li><a href="fabrica.php">Fábrica</a></li>
-  <li><a href="index.php">Sair</a></li>
+  <li><a class=text-center href="sistema.php">Home</a></li>
+  <li><a class=text-center href="cadastro_produtos.php">Cadastrar Produtos</a></li>
+  <li><a class=text-center href="cadastro_pecas.php">Cadastrar Peças</a></li>
+  <li><a class=text-center href="atendimento.php">Atendimento</a></li>
+  <li><a class=text-center href="defeito.php">Defeito</a></li>
+  <li><a class=text-center href="cadastro_os.php">Ordem de Serviço</a></li>
+  <li><a class=text-center href="consulta_os.php">Consulta OS</a></li>
+  <li><a class=text-center href="fabrica.php">Fábrica</a></li>
+  <li><a class=text-center href="index.php">Sair</a></li>
   </div>
   </ul>
   </nav>
