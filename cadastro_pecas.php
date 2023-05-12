@@ -215,10 +215,8 @@ retornaProduto="anonymous"></script>
     <?php }
     if (pg_num_rows($res) > 0){
     ?>
-    <div class="row">
-    <div class="container" id="tabela_table">
-    <div class="container">
-    <table id= "peca" class="table table-striped table-bordered table-hover table-large table-fixed">
+    <div class="container container-fluid container__peca">
+    <table id= "peca" class="table table-striped table-bordered table-hover table-large table-fixed tabela__peca">
       <th>
         <tr class="titulo_coluna">
           <th>Referência</th>
@@ -247,9 +245,9 @@ retornaProduto="anonymous"></script>
         <?php } ?>
       </tbody>
     </table>
+    </div>
+    
     <?php } ?>
-    </div>
-    </div>
         <div class="col-md-4"></div>
     </div>
     </div>

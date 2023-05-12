@@ -148,9 +148,8 @@ if(isset($_POST["btncriar"]))
     <?php }
     if (pg_num_rows($res) > 0){
     ?>
-    <div class="row">
-    <div class="container">
-    <table id= "fab" class="table table-striped table-bordered table-hover table-large table-fixed">
+    <div class="container container-fluid container__fabrica">
+    <table class="table table-striped table-bordered table-hover table-large table-fixed tabela__fabrica">
       <th>
         <tr class="titulo_coluna">
           <th>Nome</th>

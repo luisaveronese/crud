@@ -1,6 +1,6 @@
-h1{
+/* h1{
     text-align: center;
-}
+} */
 a{
     text-decoration: none;
     color: black;
@@ -11,24 +11,7 @@ a:hover{
     color: black;
 }
 
-#peca{
-    background-color: whitesmoke;
-    width: 600px;
-}
-#peca{
-    background-color: whitesmoke;
-    width: 600px;
-    margin-left: 260px;
-    margin-right: 50px;
-}
-#produto{
-    background-color: whitesmoke;
-    width: 800px;
-    margin-left: -180px;
-    margin-right: 200px;
-    
-}
-#consulta {
+/* #consulta {
     background-color: whitesmoke;
     width: 800px;
     justify-items: center;
@@ -44,4 +27,42 @@ a:hover{
     width: 400px;
     margin-left: 368px;
     margin-right: 50px;
+} */
+
+.container__peca{
+    width: 40%;
 }
+
+.tabela__peca{
+    background-color: whitesmoke;
+}
+
+
+.tabela__produto{
+    background-color: whitesmoke;
+}
+
+.container__atendimento{
+    width: 40%;
+}
+
+.tabela__atendimento{
+    background-color: whitesmoke;
+}
+
+.container__defeito{
+    width: 50%;
+}
+
+.tabela__defeito{
+    background-color: whitesmoke;
+}
+
+.container__fabrica{
+    width: 30%;
+}
+
+.tabela__fabrica{
+    background-color: whitesmoke;
+}
+

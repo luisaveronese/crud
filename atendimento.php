@@ -245,9 +245,9 @@ $(function () {
     <?php }
     if (pg_num_rows($res) > 0){
     ?>
-    <div class="container-fluid">
         <div class="row">
-    <table id= "tipo_atendimento" class="table table-striped table-bordered table-hover table-large table-fixed">
+            <div class="container container-fluid container__atendimento">
+            <table id= "tipo_atendimento" class="table table-striped table-bordered table-hover table-large table-fixed tabela__atendimento">
       <th>
         <tr class="titulo_coluna">
           <th>Código</th>
@@ -282,6 +282,8 @@ $(function () {
     </table>
     <?php } ?>
     </div>
+            </div>
+    
         <div class="col-md-4"></div>
     </div>
     </div>

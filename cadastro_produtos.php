@@ -261,9 +261,7 @@ $(function () {
     <?php }
     if (pg_num_rows($res) > 0){
     ?>
-    <div class="row">
-    <div class="container">
-    <table id= "produto" class="table table-striped table-bordered table-hover table-responsive table-fixed">
+    <table class="table table-striped table-bordered table-hover table-responsive table-fixed tabela__produto ">
       <th>
         <tr class="titulo_coluna">
           <th>Referência</th>
@@ -299,9 +297,9 @@ $(function () {
       </tbody>
     </table>
     <?php } ?>
-    </div>        
+    </div>
         <div class="col-md-4"></div>
     </div>
-</div>
+
 </body>
 </html>
