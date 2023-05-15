@@ -215,7 +215,8 @@ $(function () {
     if (pg_num_rows($res) > 0){
     ?>
     <div class="row">
-        <div class="container container-fluid container__defeito"> <table class="table table-striped table-bordered table-hover table-large table-fixed tabela__defeito">
+        <div class="container container-fluid container__defeito"> 
+        <table class="table table-striped table-bordered table-hover table-large table-fixed tabela__defeito">
       <th>
         <tr class="titulo_coluna">
           <th>Código</th>
